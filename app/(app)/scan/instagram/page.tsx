@@ -21,13 +21,10 @@ const ScanInstagramPage = () => (
         <PageHero
           description={
             <>
-              Paste a URL and see the bubble the way Instagram will show it
-              in DMs, plus anything worth fixing. Every check is a real fetch
-              made as that crawler.{" "}
-              <Link
-                href={ROUTES.SCAN}
-                className="underline underline-offset-4"
-              >
+              Paste a URL and see the bubble the way Instagram will show it in
+              DMs, plus anything worth fixing. Every check is a real fetch made
+              as that crawler.{" "}
+              <Link href={ROUTES.SCAN} className="underline underline-offset-4">
                 Back to all platforms
               </Link>
               .

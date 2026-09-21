@@ -4,7 +4,17 @@ import Link from "next/link";
 import { OgTester } from "@/components/og-tester";
 import { PageHero } from "@/components/page-hero";
 import { PageTransition } from "@/components/page-transition";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { buttonVariants } from "@/components/ui/button-variants";
 import { ROUTES } from "@/constants/routes";
+import { FAQS, SECTIONS } from "@/content/scan/google";
+import { otherScanPages, scanBreadcrumbs } from "@/lib/scan";
+import { BreadcrumbJsonLd, FaqJsonLd } from "@/seo/json-ld";
 import { createPageMetadata } from "@/seo/metadata";
 
 export const metadata: Metadata = createPageMetadata({
@@ -17,23 +27,64 @@ export const metadata: Metadata = createPageMetadata({
 const ScanGooglePage = () => (
   <PageTransition>
     <section className="container-wrapper relative">
-      <div className="container flex flex-col gap-4 py-16 md:py-20 lg:py-24">
+      <div className="container flex flex-col gap-12 py-16 md:py-20 lg:py-24">
         <PageHero
-          description="Google writes a result from the title tag and meta description, not the Open Graph pair, and trims both to fit. Paste a URL to see where it cuts, then check the same page against every other platform."
+          description="Paste a URL and see the result Google will build from it, trimmed to fit."
           title="Google Search Result Preview"
         />
 
-        <p className="text-muted-foreground mx-auto text-sm">
-          Checking another platform?{" "}
-          <Link className="underline underline-offset-4" href={ROUTES.SCAN}>
-            Scan every preview at once
-          </Link>
-          .
-        </p>
+        <OgTester platform="google" />
 
-        <div className="mt-4">
-          <OgTester />
-        </div>
+        <section className="mx-auto flex w-full max-w-2xl flex-col gap-10">
+          {SECTIONS.map((section) => (
+            <article className="flex flex-col gap-3" key={section.heading}>
+              <h2 className="text-xl font-semibold tracking-tight">
+                {section.heading}
+              </h2>
+              <div className="text-muted-foreground flex flex-col gap-3 text-sm leading-relaxed">
+                {section.body}
+              </div>
+            </article>
+          ))}
+
+          <article className="flex flex-col gap-3">
+            <h2 className="text-xl font-semibold tracking-tight">
+              Frequently asked questions
+            </h2>
+            <Accordion collapsible type="single">
+              {FAQS.map((faq) => (
+                <AccordionItem key={faq.question} value={faq.question}>
+                  <AccordionTrigger sound="click">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground leading-relaxed">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </article>
+
+          <nav className="flex flex-col gap-3">
+            <h2 className="text-xl font-semibold tracking-tight">
+              Check another platform
+            </h2>
+            <div className="flex flex-wrap gap-2">
+              {otherScanPages("google").map((page) => (
+                <Link
+                  className={buttonVariants({ size: "sm", variant: "outline" })}
+                  href={page.href}
+                  key={page.href}
+                >
+                  {page.name}
+                </Link>
+              ))}
+            </div>
+          </nav>
+
+          <FaqJsonLd items={FAQS} />
+          <BreadcrumbJsonLd items={scanBreadcrumbs("google")} />
+        </section>
       </div>
     </section>
   </PageTransition>

@@ -144,59 +144,280 @@ const Findings = ({ findings }: { findings: Finding[] }) =>
     </section>
   );
 
-const Checks = ({ result }: { result: Result }) => (
-  <Collapsible>
-    <CollapsibleTrigger asChild>
-      <button
-        type="button"
-        className="text-muted-foreground hover:text-foreground flex w-full items-center justify-between gap-2 text-left text-sm transition-colors"
-      >
-        <span>What each crawler got</span>
-        <ChevronDownIcon className="size-4 shrink-0 transition-transform data-[state=open]:rotate-180" />
-      </button>
-    </CollapsibleTrigger>
-    <CollapsibleContent>
-      <div className="flex flex-col pt-2">
-        {result.images.map((img) => {
-          const detail = [img.contentType, kb(img.bytes ?? 0)]
-            .filter(Boolean)
-            .join(" · ");
-          return (
-            <div
-              key={img.id}
-              className="flex items-center justify-between gap-4 border-b py-2 text-sm last:border-b-0"
-            >
-              <span className="shrink-0">{img.label}</span>
-              <div className="text-muted-foreground flex min-w-0 items-center gap-0.5">
-                <span
-                  className={cn("text-xs tabular-nums", statusTone(img.status))}
-                >
-                  {img.status || "failed"}
-                </span>
-                {detail ? (
-                  <span className="truncate text-xs">· {detail}</span>
-                ) : null}
-                {img.redirects > 0 ? (
-                  <span className="text-xs text-amber-600 dark:text-amber-500">
-                    · {img.redirects} redirect{img.redirects > 1 ? "s" : ""}
-                  </span>
-                ) : null}
-                {img.error ? (
-                  <span className="truncate text-xs">· {img.error}</span>
-                ) : null}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </CollapsibleContent>
-  </Collapsible>
-);
+/* One entry per surface we can draw, so a page can ask for just its own. */
+const PLATFORMS = [
+  {
+    icon: <XIcon />,
+    id: "x",
+    name: "X/Twitter",
+    render: (m: Meta, src: string) => (
+      <XPreview
+        card={m.card}
+        description={m.description}
+        image={src}
+        title={m.title}
+        url={m.url}
+      />
+    ),
+  },
+  {
+    icon: <FacebookIcon />,
+    id: "facebook",
+    name: "Facebook",
+    render: (m: Meta, src: string) => (
+      <FacebookPreview
+        description={m.description}
+        image={src}
+        title={m.title}
+        url={m.url}
+      />
+    ),
+  },
+  {
+    icon: <LinkedInIcon />,
+    id: "linkedin",
+    name: "LinkedIn",
+    render: (m: Meta, src: string) => (
+      <LinkedInPreview image={src} title={m.title} url={m.url} />
+    ),
+  },
+  {
+    icon: <SlackIcon />,
+    id: "slack",
+    name: "Slack",
+    render: (m: Meta, src: string) => (
+      <SlackPreview
+        description={m.description}
+        image={src}
+        siteName={m.siteName}
+        title={m.title}
+        url={m.url}
+      />
+    ),
+  },
+  {
+    icon: <DiscordIcon />,
+    id: "discord",
+    name: "Discord",
+    render: (m: Meta, src: string) => (
+      <DiscordPreview
+        description={m.description}
+        image={src}
+        siteName={m.siteName}
+        title={m.title}
+        url={m.url}
+      />
+    ),
+  },
+  {
+    icon: <TeamsIcon />,
+    id: "teams",
+    name: "Microsoft Teams",
+    render: (m: Meta, src: string) => (
+      <TeamsPreview
+        description={m.description}
+        image={src}
+        siteName={m.siteName}
+        title={m.title}
+        url={m.url}
+      />
+    ),
+  },
+  {
+    icon: <WhatsAppIcon />,
+    id: "whatsapp",
+    name: "WhatsApp",
+    render: (m: Meta, src: string) => (
+      <WhatsAppPreview
+        description={m.description}
+        image={src}
+        title={m.title}
+      />
+    ),
+  },
+  {
+    icon: <InstagramIcon />,
+    id: "instagram",
+    name: "Instagram",
+    render: (m: Meta, src: string) => (
+      <InstagramPreview
+        description={m.description}
+        image={src}
+        title={m.title}
+        url={m.url}
+      />
+    ),
+  },
+  {
+    icon: <TelegramIcon />,
+    id: "telegram",
+    name: "Telegram",
+    render: (m: Meta, src: string) => (
+      <TelegramPreview
+        description={m.description}
+        image={src}
+        title={m.title}
+        url={m.url}
+      />
+    ),
+  },
+  {
+    icon: <PinterestIcon />,
+    id: "pinterest",
+    name: "Pinterest",
+    render: (m: Meta, src: string) => (
+      <PinterestPreview
+        description={m.description}
+        image={src}
+        title={m.title}
+      />
+    ),
+  },
+  {
+    icon: <RedditIcon />,
+    id: "reddit",
+    name: "Reddit",
+    render: (m: Meta, src: string) => (
+      <RedditPreview
+        description={m.description}
+        image={src}
+        title={m.title}
+        url={m.url}
+      />
+    ),
+  },
+  {
+    icon: <BlueskyIcon />,
+    id: "bluesky",
+    name: "Bluesky",
+    render: (m: Meta, src: string) => (
+      <BlueskyPreview
+        description={m.description}
+        image={src}
+        title={m.title}
+        url={m.url}
+      />
+    ),
+  },
+  {
+    icon: <NotionIcon />,
+    id: "notion",
+    name: "Notion",
+    render: (m: Meta, src: string) => (
+      <NotionPreview
+        description={m.description}
+        image={src}
+        title={m.title}
+        url={m.url}
+      />
+    ),
+  },
+  {
+    icon: <GoogleIcon />,
+    id: "google",
+    name: "Google",
+    render: (m: Meta) => (
+      <GooglePreview
+        description={m.description}
+        siteName={m.siteName}
+        title={m.title}
+        url={m.url}
+      />
+    ),
+  },
+] as const;
 
-const Report = ({ result }: { result: Result }) => {
+export type ScanPlatformId = (typeof PLATFORMS)[number]["id"];
+
+const Checks = ({
+  platform,
+  result,
+}: {
+  platform?: ScanPlatformId;
+  result: Result;
+}) => {
+  const rows = platform
+    ? result.images.filter((img) => img.id === platform)
+    : result.images;
+
+  if (rows.length === 0) {
+    return null;
+  }
+
+  return (
+    <Collapsible>
+      <CollapsibleTrigger asChild>
+        <button
+          type="button"
+          className="text-muted-foreground hover:text-foreground flex w-full items-center justify-between gap-2 text-left text-sm transition-colors"
+        >
+          <span>
+            {platform ? "What the crawler got" : "What each crawler got"}
+          </span>
+          <ChevronDownIcon className="size-4 shrink-0 transition-transform data-[state=open]:rotate-180" />
+        </button>
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <div className="flex flex-col pt-2">
+          {rows.map((img) => {
+            const detail = [img.contentType, kb(img.bytes ?? 0)]
+              .filter(Boolean)
+              .join(" · ");
+            return (
+              <div
+                key={img.id}
+                className="flex items-center justify-between gap-4 border-b py-2 text-sm last:border-b-0"
+              >
+                <span className="shrink-0">{img.label}</span>
+                <div className="text-muted-foreground flex min-w-0 items-center gap-0.5">
+                  <span
+                    className={cn(
+                      "text-xs tabular-nums",
+                      statusTone(img.status)
+                    )}
+                  >
+                    {img.status || "failed"}
+                  </span>
+                  {detail ? (
+                    <span className="truncate text-xs">· {detail}</span>
+                  ) : null}
+                  {img.redirects > 0 ? (
+                    <span className="text-xs text-amber-600 dark:text-amber-500">
+                      · {img.redirects} redirect{img.redirects > 1 ? "s" : ""}
+                    </span>
+                  ) : null}
+                  {img.error ? (
+                    <span className="truncate text-xs">· {img.error}</span>
+                  ) : null}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </CollapsibleContent>
+    </Collapsible>
+  );
+};
+
+/* Google draws a text result, so it is the one preview that still says
+   something about a page with no og:image. */
+const IMAGE_FREE: Partial<Record<ScanPlatformId, true>> = { google: true };
+
+const Report = ({
+  platform,
+  result,
+}: {
+  platform?: ScanPlatformId;
+  result: Result;
+}) => {
   const m = result.meta;
   const src = result.imageUrl;
-  if (!m || !src) {
+  const shown = platform
+    ? PLATFORMS.filter((entry) => entry.id === platform)
+    : PLATFORMS;
+  const single = shown.length === 1;
+
+  if (!m || (!src && shown.some((entry) => !IMAGE_FREE[entry.id]))) {
     return (
       <p className="text-sm">
         No <code>og:image</code> on that page, so most platforms will show a
@@ -205,138 +426,49 @@ const Report = ({ result }: { result: Result }) => {
     );
   }
 
+  if (single) {
+    const [entry] = shown;
+    return (
+      <div className="mx-auto flex w-full max-w-2xl flex-col gap-6">
+        <Shell icon={entry.icon} name={entry.name}>
+          {entry.render(m, src)}
+        </Shell>
+        <Findings findings={result.findings} />
+        <Checks platform={entry.id} result={result} />
+      </div>
+    );
+  }
+
   return (
     <div className="grid gap-10 md:grid-cols-6">
       <div className="flex flex-col gap-6 md:col-span-2">
-        <div className="flex flex-col gap-2">
-          <div className="flex items-baseline justify-between gap-3">
-            <h2 className="text-sm font-medium">OG Image</h2>
-            <span className="text-muted-foreground text-xs tabular-nums">
-              {m.width && m.height ? `${m.width}×${m.height}` : null}
-            </span>
+        {src ? (
+          <div className="flex flex-col gap-2">
+            <div className="flex items-baseline justify-between gap-3">
+              <h2 className="text-sm font-medium">OG Image</h2>
+              <span className="text-muted-foreground text-xs tabular-nums">
+                {m.width && m.height ? `${m.width}×${m.height}` : null}
+              </span>
+            </div>
+            {/* oxlint-disable-next-line nextjs/no-img-element */}
+            <img
+              alt=""
+              src={src}
+              className="aspect-1200/630 w-full object-cover rounded-lg"
+            />
           </div>
-          {/* oxlint-disable-next-line nextjs/no-img-element */}
-          <img
-            alt=""
-            src={src}
-            className="aspect-1200/630 w-full object-cover rounded-lg"
-          />
-        </div>
+        ) : null}
         <Findings findings={result.findings} />
         <Checks result={result} />
       </div>
       <div className="flex flex-col gap-6 md:col-span-4">
         <h2 className="text-sm font-medium">Preview</h2>
         <div className="grid gap-6 sm:grid-cols-2">
-          <Shell name="X/Twitter" icon={<XIcon />}>
-            <XPreview
-              card={m.card}
-              description={m.description}
-              image={src}
-              title={m.title}
-              url={m.url}
-            />
-          </Shell>
-          <Shell name="Facebook" icon={<FacebookIcon />}>
-            <FacebookPreview
-              description={m.description}
-              image={src}
-              title={m.title}
-              url={m.url}
-            />
-          </Shell>
-          <Shell name="LinkedIn" icon={<LinkedInIcon />}>
-            <LinkedInPreview image={src} title={m.title} url={m.url} />
-          </Shell>
-          <Shell name="Slack" icon={<SlackIcon />}>
-            <SlackPreview
-              description={m.description}
-              image={src}
-              siteName={m.siteName}
-              title={m.title}
-              url={m.url}
-            />
-          </Shell>
-          <Shell name="Discord" icon={<DiscordIcon />}>
-            <DiscordPreview
-              description={m.description}
-              image={src}
-              siteName={m.siteName}
-              title={m.title}
-              url={m.url}
-            />
-          </Shell>
-          <Shell name="Microsoft Teams" icon={<TeamsIcon />}>
-            <TeamsPreview
-              description={m.description}
-              image={src}
-              siteName={m.siteName}
-              title={m.title}
-              url={m.url}
-            />
-          </Shell>
-          <Shell name="WhatsApp" icon={<WhatsAppIcon />}>
-            <WhatsAppPreview
-              description={m.description}
-              image={src}
-              title={m.title}
-            />
-          </Shell>
-          <Shell name="Instagram" icon={<InstagramIcon />}>
-            <InstagramPreview
-              description={m.description}
-              image={src}
-              title={m.title}
-              url={m.url}
-            />
-          </Shell>
-          <Shell name="Telegram" icon={<TelegramIcon />}>
-            <TelegramPreview
-              description={m.description}
-              image={src}
-              title={m.title}
-              url={m.url}
-            />
-          </Shell>
-          <Shell name="Pinterest" icon={<PinterestIcon />}>
-            <PinterestPreview
-              description={m.description}
-              image={src}
-              title={m.title}
-            />
-          </Shell>
-          <Shell name="Reddit" icon={<RedditIcon />}>
-            <RedditPreview
-              description={m.description}
-              image={src}
-              title={m.title}
-              url={m.url}
-            />
-          </Shell>
-          <Shell name="Bluesky" icon={<BlueskyIcon />}>
-            <BlueskyPreview
-              description={m.description}
-              image={src}
-              title={m.title}
-              url={m.url}
-            />
-          </Shell>
-          <Shell name="Notion" icon={<NotionIcon />}>
-            <NotionPreview
-              description={m.description}
-              image={src}
-              title={m.title}
-              url={m.url}
-            />
-          </Shell>
-          <Shell name="Google" icon={<GoogleIcon />}>
-            <GooglePreview
-              description={m.description}
-              siteName={m.siteName}
-              title={m.title}
-              url={m.url}
-            />
-          </Shell>
+          {shown.map((entry) => (
+            <Shell icon={entry.icon} key={entry.id} name={entry.name}>
+              {entry.render(m, src)}
+            </Shell>
+          ))}
         </div>
       </div>
     </div>
@@ -345,7 +477,7 @@ const Report = ({ result }: { result: Result }) => {
 
 const urlSchema = z.url("Enter a valid URL");
 
-export const OgTester = () => {
+export const OgTester = ({ platform }: { platform?: ScanPlatformId }) => {
   const [url, setUrl] = useState("");
   const [fieldError, setFieldError] = useState("");
   const [busy, setBusy] = useState(false);
@@ -389,11 +521,11 @@ export const OgTester = () => {
   };
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-12">
       <form
         onSubmit={run}
         noValidate
-        className="flex flex-col justify-center gap-2 sm:flex-row"
+        className="flex flex-col justify-center gap-2 sm:flex-row sm:items-start"
       >
         <div className="flex flex-col gap-1.5 max-w-lg flex-1">
           <Input
@@ -410,7 +542,7 @@ export const OgTester = () => {
             aria-label="URL to scan"
             aria-invalid={!!fieldError}
             className={cn(
-              "flex-1",
+              "shrink-0",
               fieldError && "border-red-500 focus-visible:ring-red-500"
             )}
           />
@@ -434,7 +566,7 @@ export const OgTester = () => {
         <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
       ) : null}
 
-      {result ? <Report result={result} /> : null}
+      {result ? <Report platform={platform} result={result} /> : null}
     </div>
   );
 };

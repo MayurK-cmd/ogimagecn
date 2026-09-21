@@ -54,15 +54,35 @@ const rateLimit = (ip: string) => {
   return { ok: true, remaining };
 };
 
+/* Instagram unfurls through Meta's shared crawler, so it sends the same
+   facebookexternalhit agent from a separate fetch. */
 const CRAWLERS = [
   { id: "facebook", label: "Facebook", ua: "facebookexternalhit/1.1" },
   { id: "x", label: "X", ua: "Twitterbot/1.0" },
   { id: "linkedin", label: "LinkedIn", ua: "LinkedInBot/1.0" },
   { id: "slack", label: "Slack", ua: "Slackbot-LinkExpanding 1.0" },
   { id: "discord", label: "Discord", ua: "Discordbot/2.0" },
+  {
+    id: "teams",
+    label: "Microsoft Teams",
+    ua: "Mozilla/5.0 (Windows NT 6.1; WOW64) SkypeUriPreview Preview/0.5 skype-url-preview@microsoft.com",
+  },
   { id: "whatsapp", label: "WhatsApp", ua: "WhatsApp/2.23" },
+  { id: "instagram", label: "Instagram", ua: "facebookexternalhit/1.1" },
   { id: "telegram", label: "Telegram", ua: "TelegramBot (like TwitterBot)" },
   { id: "pinterest", label: "Pinterest", ua: "Pinterest/0.2" },
+  { id: "reddit", label: "Reddit", ua: "redditbot/1.0" },
+  { id: "bluesky", label: "Bluesky", ua: "Bluesky Cardyb/1.0" },
+  {
+    id: "notion",
+    label: "Notion",
+    ua: "Notionbot/1.0 (+https://www.notion.so)",
+  },
+  {
+    id: "google",
+    label: "Google",
+    ua: "Googlebot/2.1 (+http://www.google.com/bot.html)",
+  },
 ] as const;
 
 const TIMEOUT_MS = 10_000;
@@ -360,7 +380,10 @@ export const POST = async (request: Request) => {
     })
   );
 
-  const found = pages.find((p) => p.meta?.image)?.meta ?? null;
+  /* Prefer a crawler that saw an image, but keep the tags either way: the
+     Google result is built from title and description alone. */
+  const read = pages.filter((p) => p.meta);
+  const found = read.find((p) => p.meta?.image)?.meta ?? read[0]?.meta ?? null;
   const imageUrl = found?.image ? new URL(found.image, target).toString() : "";
 
   // 2. the card itself, as each crawler. A page that unfurls everywhere and an

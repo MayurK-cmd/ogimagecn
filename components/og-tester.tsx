@@ -12,6 +12,7 @@ import {
   BlueskyIcon,
   DiscordIcon,
   FacebookIcon,
+  InstagramIcon,
   LinkedInIcon,
   NotionIcon,
   PinterestIcon,
@@ -23,6 +24,7 @@ import {
 import { BlueskyPreview } from "@/components/scan/bluesky-preview";
 import { DiscordPreview } from "@/components/scan/discord-preview";
 import { FacebookPreview } from "@/components/scan/facebook-preview";
+import { InstagramPreview } from "@/components/scan/instagram-preview";
 import { LinkedInPreview } from "@/components/scan/linkedin-preview";
 import { NotionPreview } from "@/components/scan/notion-preview";
 import { PinterestPreview } from "@/components/scan/pinterest-preview";
@@ -263,6 +265,14 @@ const Report = ({ result }: { result: Result }) => {
               description={m.description}
               image={src}
               title={m.title}
+            />
+          </Shell>
+          <Shell name="Instagram" icon={<InstagramIcon />}>
+            <InstagramPreview
+              description={m.description}
+              image={src}
+              title={m.title}
+              url={m.url}
             />
           </Shell>
           <Shell name="Telegram" icon={<TelegramIcon />}>

@@ -10,6 +10,7 @@ import { z } from "zod";
 
 import {
   BlueskyIcon,
+  SnapchatIcon,
   DiscordIcon,
   FacebookIcon,
   LinkedInIcon,
@@ -22,6 +23,7 @@ import {
   XIcon,
 } from "@/components/icons";
 import { BlueskyPreview } from "@/components/scan/bluesky-preview";
+import { SnapchatPreview } from "@/components/scan/snapchat-preview";
 import { DiscordPreview } from "@/components/scan/discord-preview";
 import { FacebookPreview } from "@/components/scan/facebook-preview";
 import { LinkedInPreview } from "@/components/scan/linkedin-preview";
@@ -292,6 +294,14 @@ const Report = ({ result }: { result: Result }) => {
           </Shell>
           <Shell name="Bluesky" icon={<BlueskyIcon />}>
             <BlueskyPreview
+              description={m.description}
+              image={src}
+              title={m.title}
+              url={m.url}
+            />
+          </Shell>
+          <Shell name="Snapchat" icon={<SnapchatIcon />}>
+            <SnapchatPreview
               description={m.description}
               image={src}
               title={m.title}

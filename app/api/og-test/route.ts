@@ -59,6 +59,7 @@ const CRAWLERS = [
   { id: "x", label: "X", ua: "Twitterbot/1.0" },
   { id: "linkedin", label: "LinkedIn", ua: "LinkedInBot/1.0" },
   { id: "slack", label: "Slack", ua: "Slackbot-LinkExpanding 1.0" },
+  { id: "snapchat", label: "Snapchat", ua: "SnapchatBot/1.0" },
   { id: "discord", label: "Discord", ua: "Discordbot/2.0" },
   { id: "whatsapp", label: "WhatsApp", ua: "WhatsApp/2.23" },
   { id: "telegram", label: "Telegram", ua: "TelegramBot (like TwitterBot)" },

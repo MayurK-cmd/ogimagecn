@@ -79,6 +79,11 @@ const CRAWLERS = [
     ua: "Mastodon/4.8.0-alpha.3 (http.rb/5.3.1; +https://mastodon.social/) Bot",
   },
   {
+    id: "threads",
+    label: "Threads",
+    ua: "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Threads/1.0",
+  },
+  {
     id: "notion",
     label: "Notion",
     ua: "Notionbot/1.0 (+https://www.notion.so)",

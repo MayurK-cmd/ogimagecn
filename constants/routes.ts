@@ -27,6 +27,7 @@ export const ROUTES = {
   SCAN_NOTION: "/scan/notion",
   SCAN_REDDIT: "/scan/reddit",
   SCAN_TEAMS: "/scan/teams",
+  SCAN_THREADS: "/scan/threads",
   SITEMAP: "/sitemap.xml",
   SPONSOR: "/sponsor",
 } as const;

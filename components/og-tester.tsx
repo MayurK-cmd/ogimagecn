@@ -22,6 +22,7 @@ import {
   SlackIcon,
   TeamsIcon,
   TelegramIcon,
+  ThreadsIcon,
   WhatsAppIcon,
   XIcon,
 } from "@/components/icons";
@@ -38,6 +39,7 @@ import { RedditPreview } from "@/components/scan/reddit-preview";
 import { SlackPreview } from "@/components/scan/slack-preview";
 import { TeamsPreview } from "@/components/scan/teams-preview";
 import { TelegramPreview } from "@/components/scan/telegram-preview";
+import { ThreadsPreview } from "@/components/scan/threads-preview";
 import { WhatsAppPreview } from "@/components/scan/whatsapp-preview";
 import { XPreview } from "@/components/scan/x-preview";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -310,6 +312,19 @@ const PLATFORMS = [
         description={m.description}
         image={src}
         siteName={m.siteName}
+        title={m.title}
+        url={m.url}
+      />
+    ),
+  },
+  {
+    icon: <ThreadsIcon />,
+    id: "threads",
+    name: "Threads",
+    render: (m: Meta, src: string) => (
+      <ThreadsPreview
+        description={m.description}
+        image={src}
         title={m.title}
         url={m.url}
       />

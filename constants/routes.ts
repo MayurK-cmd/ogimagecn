@@ -23,6 +23,7 @@ export const ROUTES = {
   SCAN_BLUESKY: "/scan/bluesky",
   SCAN_GOOGLE: "/scan/google",
   SCAN_INSTAGRAM: "/scan/instagram",
+  SCAN_MASTODON: "/scan/mastodon",
   SCAN_NOTION: "/scan/notion",
   SCAN_REDDIT: "/scan/reddit",
   SCAN_TEAMS: "/scan/teams",

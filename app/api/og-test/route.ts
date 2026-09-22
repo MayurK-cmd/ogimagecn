@@ -74,6 +74,11 @@ const CRAWLERS = [
   { id: "reddit", label: "Reddit", ua: "redditbot/1.0" },
   { id: "bluesky", label: "Bluesky", ua: "Bluesky Cardyb/1.0" },
   {
+    id: "mastodon",
+    label: "Mastodon",
+    ua: "Mastodon/4.8.0-alpha.3 (http.rb/5.3.1; +https://mastodon.social/) Bot",
+  },
+  {
     id: "notion",
     label: "Notion",
     ua: "Notionbot/1.0 (+https://www.notion.so)",

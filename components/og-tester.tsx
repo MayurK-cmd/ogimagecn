@@ -15,6 +15,7 @@ import {
   InstagramIcon,
   GoogleIcon,
   LinkedInIcon,
+  MastodonIcon,
   NotionIcon,
   PinterestIcon,
   RedditIcon,
@@ -30,6 +31,7 @@ import { FacebookPreview } from "@/components/scan/facebook-preview";
 import { GooglePreview } from "@/components/scan/google-preview";
 import { InstagramPreview } from "@/components/scan/instagram-preview";
 import { LinkedInPreview } from "@/components/scan/linkedin-preview";
+import { MastodonPreview } from "@/components/scan/mastodon-preview";
 import { NotionPreview } from "@/components/scan/notion-preview";
 import { PinterestPreview } from "@/components/scan/pinterest-preview";
 import { RedditPreview } from "@/components/scan/reddit-preview";
@@ -294,6 +296,20 @@ const PLATFORMS = [
       <BlueskyPreview
         description={m.description}
         image={src}
+        title={m.title}
+        url={m.url}
+      />
+    ),
+  },
+  {
+    icon: <MastodonIcon />,
+    id: "mastodon",
+    name: "Mastodon",
+    render: (m: Meta, src: string) => (
+      <MastodonPreview
+        description={m.description}
+        image={src}
+        siteName={m.siteName}
         title={m.title}
         url={m.url}
       />

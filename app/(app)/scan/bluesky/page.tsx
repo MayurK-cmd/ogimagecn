@@ -12,28 +12,28 @@ import {
 } from "@/components/ui/accordion";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { ROUTES } from "@/constants/routes";
-import { FAQS, SECTIONS } from "@/content/scan/reddit";
+import { FAQS, SECTIONS } from "@/content/scan/bluesky";
 import { otherScanPages, scanBreadcrumbs } from "@/lib/scan";
 import { BreadcrumbJsonLd, FaqJsonLd } from "@/seo/json-ld";
 import { createPageMetadata } from "@/seo/metadata";
 
 export const metadata: Metadata = createPageMetadata({
   description:
-    "Paste a URL and see how its Reddit post tile renders — image, title, and domain — plus anything worth fixing.",
-  path: ROUTES.SCAN_REDDIT,
-  title: "Reddit Open Graph Preview",
+    "Paste a URL and see how its Bluesky card renders — image, title, description, and domain — plus anything worth fixing.",
+  path: ROUTES.SCAN_BLUESKY,
+  title: "Bluesky Open Graph Preview",
 });
 
-const ScanRedditPage = () => (
+const ScanBlueskyPage = () => (
   <PageTransition>
     <section className="container-wrapper relative">
       <div className="container flex flex-col gap-12 py-16 md:py-20 lg:py-24">
         <PageHero
-          description="Paste a URL and see the tile Reddit will build from it in the feed."
-          title="Reddit Open Graph Preview"
+          description="Paste a URL and see the card Bluesky will build from it before you post."
+          title="Bluesky Open Graph Preview"
         />
 
-        <OgTester platform="reddit" />
+        <OgTester platform="bluesky" />
 
         <section className="mx-auto flex w-full max-w-2xl flex-col gap-10">
           {SECTIONS.map((section) => (
@@ -70,7 +70,7 @@ const ScanRedditPage = () => (
               Check another platform
             </h2>
             <div className="flex flex-wrap gap-2">
-              {otherScanPages("reddit").map((page) => (
+              {otherScanPages("bluesky").map((page) => (
                 <Link
                   className={buttonVariants({ size: "sm", variant: "outline" })}
                   href={page.href}
@@ -83,11 +83,11 @@ const ScanRedditPage = () => (
           </nav>
 
           <FaqJsonLd items={FAQS} />
-          <BreadcrumbJsonLd items={scanBreadcrumbs("reddit")} />
+          <BreadcrumbJsonLd items={scanBreadcrumbs("bluesky")} />
         </section>
       </div>
     </section>
   </PageTransition>
 );
 
-export default ScanRedditPage;
+export default ScanBlueskyPage;

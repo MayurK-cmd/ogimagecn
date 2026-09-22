@@ -12,28 +12,28 @@ import {
 } from "@/components/ui/accordion";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { ROUTES } from "@/constants/routes";
-import { FAQS, SECTIONS } from "@/content/scan/reddit";
+import { FAQS, SECTIONS } from "@/content/scan/teams";
 import { otherScanPages, scanBreadcrumbs } from "@/lib/scan";
 import { BreadcrumbJsonLd, FaqJsonLd } from "@/seo/json-ld";
 import { createPageMetadata } from "@/seo/metadata";
 
 export const metadata: Metadata = createPageMetadata({
   description:
-    "Paste a URL and see how its Reddit post tile renders — image, title, and domain — plus anything worth fixing.",
-  path: ROUTES.SCAN_REDDIT,
-  title: "Reddit Open Graph Preview",
+    "Paste a URL and see how it unfurls in Microsoft Teams — site name, title, description, and image — plus anything worth fixing.",
+  path: ROUTES.SCAN_TEAMS,
+  title: "Microsoft Teams Link Preview",
 });
 
-const ScanRedditPage = () => (
+const ScanTeamsPage = () => (
   <PageTransition>
     <section className="container-wrapper relative">
       <div className="container flex flex-col gap-12 py-16 md:py-20 lg:py-24">
         <PageHero
-          description="Paste a URL and see the tile Reddit will build from it in the feed."
-          title="Reddit Open Graph Preview"
+          description="Paste a URL and see the card Microsoft Teams will build from it."
+          title="Microsoft Teams Link Preview"
         />
 
-        <OgTester platform="reddit" />
+        <OgTester platform="teams" />
 
         <section className="mx-auto flex w-full max-w-2xl flex-col gap-10">
           {SECTIONS.map((section) => (
@@ -70,7 +70,7 @@ const ScanRedditPage = () => (
               Check another platform
             </h2>
             <div className="flex flex-wrap gap-2">
-              {otherScanPages("reddit").map((page) => (
+              {otherScanPages("teams").map((page) => (
                 <Link
                   className={buttonVariants({ size: "sm", variant: "outline" })}
                   href={page.href}
@@ -83,11 +83,11 @@ const ScanRedditPage = () => (
           </nav>
 
           <FaqJsonLd items={FAQS} />
-          <BreadcrumbJsonLd items={scanBreadcrumbs("reddit")} />
+          <BreadcrumbJsonLd items={scanBreadcrumbs("teams")} />
         </section>
       </div>
     </section>
   </PageTransition>
 );
 
-export default ScanRedditPage;
+export default ScanTeamsPage;

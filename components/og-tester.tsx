@@ -10,6 +10,7 @@ import { z } from "zod";
 
 import {
   BlueskyIcon,
+  SnapchatIcon,
   DiscordIcon,
   FacebookIcon,
   InstagramIcon,
@@ -26,6 +27,7 @@ import {
   XIcon,
 } from "@/components/icons";
 import { BlueskyPreview } from "@/components/scan/bluesky-preview";
+import { SnapchatPreview } from "@/components/scan/snapchat-preview";
 import { DiscordPreview } from "@/components/scan/discord-preview";
 import { FacebookPreview } from "@/components/scan/facebook-preview";
 import { GooglePreview } from "@/components/scan/google-preview";

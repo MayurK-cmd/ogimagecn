@@ -40,6 +40,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       lastModified: new Date(),
       priority: 0.8,
+      url: `${SITE.URL}${ROUTES.SCAN_SNAPCHAT}`,
+    },
+    {
+      changeFrequency: "monthly",
+      lastModified: new Date(),
+      priority: 0.8,
       url: `${SITE.URL}${ROUTES.SCAN_TEAMS}`,
     },
     {

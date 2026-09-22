@@ -14,5 +14,6 @@ export const SCAN_PLATFORM_PAGES: ScanPlatformPage[] = [
   { href: ROUTES.SCAN_MASTODON, id: "mastodon", name: "Mastodon" },
   { href: ROUTES.SCAN_NOTION, id: "notion", name: "Notion" },
   { href: ROUTES.SCAN_REDDIT, id: "reddit", name: "Reddit" },
+  { href: ROUTES.SCAN_SNAPCHAT, id: "snapchat", name: "Snapchat" },
   { href: ROUTES.SCAN_TEAMS, id: "teams", name: "Microsoft Teams" },
 ];

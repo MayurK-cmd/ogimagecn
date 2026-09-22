@@ -11,7 +11,6 @@ const host = (value: string) => {
 
 export interface SnapchatPreviewProps {
   className?: string;
-  description?: string;
   image: string;
   title?: string;
   url?: string;
@@ -20,7 +19,6 @@ export interface SnapchatPreviewProps {
 /* Snapchat renders a compact chat card: full-width image with title + domain in rounded bubble. */
 export const SnapchatPreview = ({
   className,
-  description,
   image,
   title,
   url,

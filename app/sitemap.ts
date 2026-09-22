@@ -66,6 +66,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
       url: `${SITE.URL}${ROUTES.SCAN_GOOGLE}`,
     },
+    {
+      changeFrequency: "monthly",
+      lastModified: new Date(),
+      priority: 0.7,
+      url: `${SITE.URL}${ROUTES.SCAN_SIGNAL}`,
+    },
   ];
 
   const docPages: MetadataRoute.Sitemap = source.getPages().map((page) => ({

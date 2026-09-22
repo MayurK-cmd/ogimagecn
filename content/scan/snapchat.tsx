@@ -26,10 +26,10 @@ export const SECTIONS: ScanSection[] = [
         <p>
           When chat shows a bare URL instead of a card, the fetch failed rather
           than the tag being absent. Snapchat&apos;s crawler needs to reach the
-          page and the image without a login, without a long redirect chain,
-          and without being served a different response by user agent. The scan
-          above requests the page the same way, so a check that passes here is
-          a fetch that works there.
+          page and the image without a login, without a long redirect chain, and
+          without being served a different response by user agent. The scan
+          above requests the page the same way, so a check that passes here is a
+          fetch that works there.
         </p>
         <p>
           An image that is missing, slow, or much larger than 1200×630 is the

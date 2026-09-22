@@ -21,6 +21,7 @@ import {
   PinterestIcon,
   RedditIcon,
   SlackIcon,
+  SignalIcon,
   TeamsIcon,
   TelegramIcon,
   WhatsAppIcon,
@@ -36,6 +37,7 @@ import { MastodonPreview } from "@/components/scan/mastodon-preview";
 import { NotionPreview } from "@/components/scan/notion-preview";
 import { PinterestPreview } from "@/components/scan/pinterest-preview";
 import { RedditPreview } from "@/components/scan/reddit-preview";
+import { SignalPreview } from "@/components/scan/signal-preview";
 import { SlackPreview } from "@/components/scan/slack-preview";
 import { SnapchatPreview } from "@/components/scan/snapchat-preview";
 import { TeamsPreview } from "@/components/scan/teams-preview";
@@ -236,6 +238,19 @@ const PLATFORMS = [
         description={m.description}
         image={src}
         title={m.title}
+      />
+    ),
+  },
+  {
+    icon: <SignalIcon />,
+    id: "signal",
+    name: "Signal",
+    render: (m: Meta, src: string) => (
+      <SignalPreview
+        description={m.description}
+        image={src}
+        title={m.title}
+        url={m.url}
       />
     ),
   },

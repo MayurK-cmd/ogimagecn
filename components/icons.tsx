@@ -23,6 +23,30 @@ export const WhatsAppIcon = ({
   </svg>
 );
 
+export const SignalIcon = ({
+  className,
+  ...props
+}: React.ComponentProps<"svg">) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={cn("size-4 shrink-0", className)}
+    {...props}
+  >
+    <path
+      fill="currentColor"
+      fillRule="evenodd"
+      d="M12 1.5C6.201 1.5 1.5 5.545 1.5 10.5c0 2.253.988 4.31 2.64 5.88L3.11 21.5l5.31-2.04c1.1.35 2.3.54 3.58.54 5.799 0 10.5-4.045 10.5-9.5S17.799 1.5 12 1.5Zm0 2c4.694 0 8.5 3.14 8.5 7s-3.806 7.5-8.5 7.5c-1.21 0-2.36-.21-3.38-.59l-.35-.13-2.32.89.55-2.29-.28-.27C4.8 14.42 3.5 12.6 3.5 10.5c0-3.86 3.806-7 8.5-7Z"
+      clipRule="evenodd"
+    />
+    <path
+      fill="currentColor"
+      d="M7 10.5a1 1 0 1 0 2 0 1 1 0 0 0-2 0Zm4 0a1 1 0 1 0 2 0 1 1 0 0 0-2 0Zm4 0a1 1 0 1 0 2 0 1 1 0 0 0-2 0Z"
+    />
+  </svg>
+);
+
 export const TelegramIcon = ({
   className,
   ...props

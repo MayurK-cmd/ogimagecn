@@ -15,6 +15,7 @@ import {
   FacebookIcon,
   InstagramIcon,
   GoogleIcon,
+  GoogleChatIcon,
   LinkedInIcon,
   LINEIcon,
   MastodonIcon,
@@ -32,6 +33,7 @@ import {
 import { BlueskyPreview } from "@/components/scan/bluesky-preview";
 import { DiscordPreview } from "@/components/scan/discord-preview";
 import { FacebookPreview } from "@/components/scan/facebook-preview";
+import { GoogleChatPreview } from "@/components/scan/google-chat-preview";
 import { GooglePreview } from "@/components/scan/google-preview";
 import { InstagramPreview } from "@/components/scan/instagram-preview";
 import { LINEPreview } from "@/components/scan/line-preview";
@@ -386,6 +388,19 @@ const PLATFORMS = [
       <GooglePreview
         description={m.description}
         siteName={m.siteName}
+        title={m.title}
+        url={m.url}
+      />
+    ),
+  },
+  {
+    icon: <GoogleChatIcon />,
+    id: "google-chat",
+    name: "Google Chat",
+    render: (m: Meta, src: string) => (
+      <GoogleChatPreview
+        description={m.description}
+        image={src}
         title={m.title}
         url={m.url}
       />

@@ -34,6 +34,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       lastModified: new Date(),
       priority: 0.8,
+      url: `${SITE.URL}${ROUTES.SCAN_LINE}`,
+    },
+    {
+      changeFrequency: "monthly",
+      lastModified: new Date(),
+      priority: 0.8,
       url: `${SITE.URL}${ROUTES.SCAN_REDDIT}`,
     },
     {
@@ -53,6 +59,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       priority: 0.8,
       url: `${SITE.URL}${ROUTES.SCAN_THREADS}`,
+    },
+    {
+      changeFrequency: "monthly",
+      lastModified: new Date(),
+      priority: 0.8,
+      url: `${SITE.URL}${ROUTES.SCAN_TIKTOK}`,
+    },
+    {
+      changeFrequency: "monthly",
+      lastModified: new Date(),
+      priority: 0.8,
+      url: `${SITE.URL}${ROUTES.SCAN_TUMBLR}`,
+    },
+    {
+      changeFrequency: "monthly",
+      lastModified: new Date(),
+      priority: 0.8,
+      url: `${SITE.URL}${ROUTES.SCAN_WECHAT}`,
     },
     {
       changeFrequency: "monthly",
@@ -77,6 +101,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       priority: 0.7,
       url: `${SITE.URL}${ROUTES.SCAN_GOOGLE}`,
+    },
+    {
+      changeFrequency: "monthly",
+      lastModified: new Date(),
+      priority: 0.7,
+      url: `${SITE.URL}${ROUTES.SCAN_GOOGLE_CHAT}`,
+    },
+    {
+      changeFrequency: "monthly",
+      lastModified: new Date(),
+      priority: 0.7,
+      url: `${SITE.URL}${ROUTES.SCAN_IMESSAGE}`,
     },
     {
       changeFrequency: "monthly",

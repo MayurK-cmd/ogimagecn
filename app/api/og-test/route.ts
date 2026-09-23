@@ -92,6 +92,11 @@ const CRAWLERS = [
     ua: "Notionbot/1.0 (+https://www.notion.so)",
   },
   {
+    id: "tiktok",
+    label: "TikTok",
+    ua: "Mozilla/5.0 (compatible; TikTokSpider; ttspider-feedback@tiktok.com)",
+  },
+  {
     id: "google",
     label: "Google",
     ua: "Googlebot/2.1 (+http://www.google.com/bot.html)",

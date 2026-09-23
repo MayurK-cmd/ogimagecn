@@ -97,9 +97,29 @@ const CRAWLERS = [
     ua: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) AppleWebKit/601.2.4 (KHTML, like Gecko) Version/9.0.1 Safari/601.2.4 facebookexternalhit/1.1 Facebot Twitterbot/1.0",
   },
   {
+    id: "tiktok",
+    label: "TikTok",
+    ua: "Mozilla/5.0 (compatible; TikTokSpider; ttspider-feedback@tiktok.com)",
+  },
+  {
+    id: "line",
+    label: "LINE",
+    ua: "Mozilla/5.0 (compatible; Linespider/1.1; +https://lin.ee/4dwXkTH)",
+  },
+  {
+    id: "wechat",
+    label: "WeChat",
+    ua: "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.49(0x18003137) NetType/WIFI Language/zh_CN",
+  },
+  {
     id: "google",
     label: "Google",
     ua: "Googlebot/2.1 (+http://www.google.com/bot.html)",
+  },
+  {
+    id: "google-chat",
+    label: "Google Chat",
+    ua: "Google-Chat/1.0",
   },
 ] as const;
 

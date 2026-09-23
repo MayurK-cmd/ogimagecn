@@ -34,6 +34,7 @@ export const ROUTES = {
   SCAN_TEAMS: "/scan/teams",
   SCAN_THREADS: "/scan/threads",
   SCAN_TIKTOK: "/scan/tiktok",
+  SCAN_TUMBLR: "/scan/tumblr",
   SCAN_WECHAT: "/scan/wechat",
   SITEMAP: "/sitemap.xml",
   SPONSOR: "/sponsor",

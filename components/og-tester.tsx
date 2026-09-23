@@ -29,6 +29,7 @@ import {
   TelegramIcon,
   ThreadsIcon,
   TikTokIcon,
+  TumblrIcon,
   WeChatIcon,
   WhatsAppIcon,
   XIcon,
@@ -53,6 +54,7 @@ import { TeamsPreview } from "@/components/scan/teams-preview";
 import { TelegramPreview } from "@/components/scan/telegram-preview";
 import { ThreadsPreview } from "@/components/scan/threads-preview";
 import { TikTokPreview } from "@/components/scan/tiktok-preview";
+import { TumblrPreview } from "@/components/scan/tumblr-preview";
 import { WeChatPreview } from "@/components/scan/wechat-preview";
 import { WhatsAppPreview } from "@/components/scan/whatsapp-preview";
 import { XPreview } from "@/components/scan/x-preview";
@@ -400,6 +402,19 @@ const PLATFORMS = [
     name: "WeChat",
     render: (m: Meta, src: string) => (
       <WeChatPreview
+        description={m.description}
+        image={src}
+        title={m.title}
+        url={m.url}
+      />
+    ),
+  },
+  {
+    icon: <TumblrIcon />,
+    id: "tumblr",
+    name: "Tumblr",
+    render: (m: Meta, src: string) => (
+      <TumblrPreview
         description={m.description}
         image={src}
         title={m.title}

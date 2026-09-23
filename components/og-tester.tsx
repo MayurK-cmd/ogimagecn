@@ -492,7 +492,7 @@ const Report = ({
 
   return (
     <div className="grid gap-10 md:grid-cols-6">
-      <div className="flex flex-col gap-6 md:col-span-2">
+      <div className="flex flex-col gap-6 self-start md:sticky md:top-[calc(var(--header-height)+1rem)] md:col-span-2">
         {src ? (
           <div className="flex flex-col gap-2">
             <div className="flex items-baseline justify-between gap-3">

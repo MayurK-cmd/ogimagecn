@@ -252,6 +252,21 @@ export const XIcon = ({ className, ...props }: React.ComponentProps<"svg">) => (
   </svg>
 );
 
+export const ThreadsIcon = ({
+  className,
+  ...props
+}: React.ComponentProps<"svg">) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className={cn("size-4", className)}
+    {...props}
+  >
+    <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.322 13.35c-.966 0-1.82-.526-2.274-1.308-.825 1.588-2.426 2.7-4.245 2.7-2.416 0-4.378-1.846-4.526-4.21H3.14l.001-.182c0-3.37 3.14-6.108 6.723-6.108 1.707 0 3.264.62 4.452 1.639.708-.694 1.68-1.06 2.729-1.06 2.146 0 3.889 1.74 3.889 3.889 0 2.146-1.743 3.889-3.889 3.889-.534 0-1.04-.115-1.499-.315-.469.65-1.21 1.088-2.052 1.214v.542h.003z" />
+  </svg>
+);
+
 export const DiscordIcon = ({
   className,
   ...props

@@ -25,6 +25,7 @@ import {
   TeamsIcon,
   TelegramIcon,
   ThreadsIcon,
+  NextdoorIcon,
   WhatsAppIcon,
   XIcon,
 } from "@/components/icons";
@@ -35,6 +36,7 @@ import { GooglePreview } from "@/components/scan/google-preview";
 import { InstagramPreview } from "@/components/scan/instagram-preview";
 import { LinkedInPreview } from "@/components/scan/linkedin-preview";
 import { MastodonPreview } from "@/components/scan/mastodon-preview";
+import { NextdoorPreview } from "@/components/scan/nextdoor-preview";
 import { NotionPreview } from "@/components/scan/notion-preview";
 import { PinterestPreview } from "@/components/scan/pinterest-preview";
 import { RedditPreview } from "@/components/scan/reddit-preview";
@@ -348,6 +350,19 @@ const PLATFORMS = [
     name: "Snapchat",
     render: (m: Meta, src: string) => (
       <SnapchatPreview image={src} title={m.title} url={m.url} />
+    ),
+  },
+  {
+    icon: <NextdoorIcon />,
+    id: "nextdoor",
+    name: "Nextdoor",
+    render: (m: Meta, src: string) => (
+      <NextdoorPreview
+        description={m.description}
+        image={src}
+        title={m.title}
+        url={m.url}
+      />
     ),
   },
   {

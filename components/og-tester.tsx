@@ -10,6 +10,7 @@ import { z } from "zod";
 
 import {
   BlueskyIcon,
+  SnapchatIcon,
   DiscordIcon,
   FacebookIcon,
   InstagramIcon,
@@ -20,6 +21,7 @@ import {
   PinterestIcon,
   RedditIcon,
   SlackIcon,
+  SignalIcon,
   TeamsIcon,
   TelegramIcon,
   ThreadsIcon,
@@ -36,7 +38,9 @@ import { MastodonPreview } from "@/components/scan/mastodon-preview";
 import { NotionPreview } from "@/components/scan/notion-preview";
 import { PinterestPreview } from "@/components/scan/pinterest-preview";
 import { RedditPreview } from "@/components/scan/reddit-preview";
+import { SignalPreview } from "@/components/scan/signal-preview";
 import { SlackPreview } from "@/components/scan/slack-preview";
+import { SnapchatPreview } from "@/components/scan/snapchat-preview";
 import { TeamsPreview } from "@/components/scan/teams-preview";
 import { TelegramPreview } from "@/components/scan/telegram-preview";
 import { ThreadsPreview } from "@/components/scan/threads-preview";
@@ -240,6 +244,19 @@ const PLATFORMS = [
     ),
   },
   {
+    icon: <SignalIcon />,
+    id: "signal",
+    name: "Signal",
+    render: (m: Meta, src: string) => (
+      <SignalPreview
+        description={m.description}
+        image={src}
+        title={m.title}
+        url={m.url}
+      />
+    ),
+  },
+  {
     icon: <InstagramIcon />,
     id: "instagram",
     name: "Instagram",
@@ -328,6 +345,14 @@ const PLATFORMS = [
         title={m.title}
         url={m.url}
       />
+),
+  },
+  {
+    icon: <SnapchatIcon />,
+    id: "snapchat",
+    name: "Snapchat",
+    render: (m: Meta, src: string) => (
+      <SnapchatPreview image={src} title={m.title} url={m.url} />
     ),
   },
   {

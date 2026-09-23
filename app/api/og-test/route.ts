@@ -61,6 +61,7 @@ const CRAWLERS = [
   { id: "x", label: "X", ua: "Twitterbot/1.0" },
   { id: "linkedin", label: "LinkedIn", ua: "LinkedInBot/1.0" },
   { id: "slack", label: "Slack", ua: "Slackbot-LinkExpanding 1.0" },
+  { id: "snapchat", label: "Snapchat", ua: "SnapchatBot/1.0" },
   { id: "discord", label: "Discord", ua: "Discordbot/2.0" },
   {
     id: "teams",
@@ -68,6 +69,8 @@ const CRAWLERS = [
     ua: "Mozilla/5.0 (Windows NT 6.1; WOW64) SkypeUriPreview Preview/0.5 skype-url-preview@microsoft.com",
   },
   { id: "whatsapp", label: "WhatsApp", ua: "WhatsApp/2.23" },
+  // Signal intentionally masquerades as WhatsApp when fetching previews.
+  { id: "signal", label: "Signal", ua: "WhatsApp/2" },
   { id: "instagram", label: "Instagram", ua: "facebookexternalhit/1.1" },
   { id: "telegram", label: "Telegram", ua: "TelegramBot (like TwitterBot)" },
   { id: "pinterest", label: "Pinterest", ua: "Pinterest/0.2" },

@@ -96,6 +96,11 @@ const CRAWLERS = [
     label: "Google",
     ua: "Googlebot/2.1 (+http://www.google.com/bot.html)",
   },
+  {
+    id: "google-chat",
+    label: "Google Chat",
+    ua: "Google-Chat/1.0",
+  },
 ] as const;
 
 const TIMEOUT_MS = 10_000;

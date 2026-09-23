@@ -76,6 +76,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       lastModified: new Date(),
       priority: 0.7,
+      url: `${SITE.URL}${ROUTES.SCAN_GOOGLE_CHAT}`,
+    },
+    {
+      changeFrequency: "monthly",
+      lastModified: new Date(),
+      priority: 0.7,
       url: `${SITE.URL}${ROUTES.SCAN_SIGNAL}`,
     },
   ];

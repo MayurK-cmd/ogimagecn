@@ -15,7 +15,10 @@ import {
   FacebookIcon,
   InstagramIcon,
   GoogleIcon,
+  GoogleChatIcon,
+  IMessageIcon,
   LinkedInIcon,
+  LINEIcon,
   MastodonIcon,
   NotionIcon,
   PinterestIcon,
@@ -25,15 +28,20 @@ import {
   TeamsIcon,
   TelegramIcon,
   ThreadsIcon,
+  TikTokIcon,
   TumblrIcon,
+  WeChatIcon,
   WhatsAppIcon,
   XIcon,
 } from "@/components/icons";
 import { BlueskyPreview } from "@/components/scan/bluesky-preview";
 import { DiscordPreview } from "@/components/scan/discord-preview";
 import { FacebookPreview } from "@/components/scan/facebook-preview";
+import { GoogleChatPreview } from "@/components/scan/google-chat-preview";
 import { GooglePreview } from "@/components/scan/google-preview";
+import { IMessagePreview } from "@/components/scan/imessage-preview";
 import { InstagramPreview } from "@/components/scan/instagram-preview";
+import { LINEPreview } from "@/components/scan/line-preview";
 import { LinkedInPreview } from "@/components/scan/linkedin-preview";
 import { MastodonPreview } from "@/components/scan/mastodon-preview";
 import { NotionPreview } from "@/components/scan/notion-preview";
@@ -45,7 +53,9 @@ import { SnapchatPreview } from "@/components/scan/snapchat-preview";
 import { TeamsPreview } from "@/components/scan/teams-preview";
 import { TelegramPreview } from "@/components/scan/telegram-preview";
 import { ThreadsPreview } from "@/components/scan/threads-preview";
+import { TikTokPreview } from "@/components/scan/tiktok-preview";
 import { TumblrPreview } from "@/components/scan/tumblr-preview";
+import { WeChatPreview } from "@/components/scan/wechat-preview";
 import { WhatsAppPreview } from "@/components/scan/whatsapp-preview";
 import { XPreview } from "@/components/scan/x-preview";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -353,6 +363,53 @@ const PLATFORMS = [
     ),
   },
   {
+    icon: <IMessageIcon />,
+    id: "imessage",
+    name: "iMessage",
+    render: (m: Meta, src: string) => (
+      <IMessagePreview
+        image={src}
+        siteName={m.siteName}
+        title={m.title}
+        url={m.url}
+      />
+    ),
+  },
+  {
+    icon: <TikTokIcon />,
+    id: "tiktok",
+    name: "TikTok",
+    render: (m: Meta, src: string) => (
+      <TikTokPreview image={src} title={m.title} url={m.url} />
+    ),
+  },
+  {
+    icon: <LINEIcon />,
+    id: "line",
+    name: "LINE",
+    render: (m: Meta, src: string) => (
+      <LINEPreview
+        description={m.description}
+        image={src}
+        title={m.title}
+        url={m.url}
+      />
+    ),
+  },
+  {
+    icon: <WeChatIcon />,
+    id: "wechat",
+    name: "WeChat",
+    render: (m: Meta, src: string) => (
+      <WeChatPreview
+        description={m.description}
+        image={src}
+        title={m.title}
+        url={m.url}
+      />
+    ),
+  },
+  {
     icon: <TumblrIcon />,
     id: "tumblr",
     name: "Tumblr",
@@ -386,6 +443,19 @@ const PLATFORMS = [
       <GooglePreview
         description={m.description}
         siteName={m.siteName}
+        title={m.title}
+        url={m.url}
+      />
+    ),
+  },
+  {
+    icon: <GoogleChatIcon />,
+    id: "google-chat",
+    name: "Google Chat",
+    render: (m: Meta, src: string) => (
+      <GoogleChatPreview
+        description={m.description}
+        image={src}
         title={m.title}
         url={m.url}
       />

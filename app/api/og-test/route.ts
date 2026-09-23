@@ -97,9 +97,19 @@ const CRAWLERS = [
     ua: "Mozilla/5.0 (compatible; TikTokSpider; ttspider-feedback@tiktok.com)",
   },
   {
+    id: "line",
+    label: "LINE",
+    ua: "Mozilla/5.0 (compatible; Linespider/1.1; +https://lin.ee/4dwXkTH)",
+  },
+  {
     id: "google",
     label: "Google",
     ua: "Googlebot/2.1 (+http://www.google.com/bot.html)",
+  },
+  {
+    id: "google-chat",
+    label: "Google Chat",
+    ua: "Google-Chat/1.0",
   },
 ] as const;
 

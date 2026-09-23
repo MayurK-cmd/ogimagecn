@@ -24,7 +24,7 @@ export const metadata: Metadata = createPageMetadata({
   title: "Google Search Result Preview",
 });
 
-const ScanGooglePage = () => (
+const GoogleScanPage = () => (
   <PageTransition>
     <section className="container-wrapper relative">
       <div className="container flex flex-col gap-12 py-16 md:py-20 lg:py-24">
@@ -90,4 +90,4 @@ const ScanGooglePage = () => (
   </PageTransition>
 );
 
-export default ScanGooglePage;
+export default GoogleScanPage;

@@ -24,7 +24,7 @@ export const metadata: Metadata = createPageMetadata({
   title: "Snapchat Open Graph Preview",
 });
 
-const ScanSnapchatPage = () => (
+const SnapchatScanPage = () => (
   <PageTransition>
     <section className="container-wrapper relative">
       <div className="container flex flex-col gap-12 py-16 md:py-20 lg:py-24">
@@ -90,4 +90,4 @@ const ScanSnapchatPage = () => (
   </PageTransition>
 );
 
-export default ScanSnapchatPage;
+export default SnapchatScanPage;

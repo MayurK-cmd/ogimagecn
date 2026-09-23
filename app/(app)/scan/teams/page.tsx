@@ -24,7 +24,7 @@ export const metadata: Metadata = createPageMetadata({
   title: "Microsoft Teams Link Preview",
 });
 
-const ScanTeamsPage = () => (
+const TeamsScanPage = () => (
   <PageTransition>
     <section className="container-wrapper relative">
       <div className="container flex flex-col gap-12 py-16 md:py-20 lg:py-24">
@@ -90,4 +90,4 @@ const ScanTeamsPage = () => (
   </PageTransition>
 );
 
-export default ScanTeamsPage;
+export default TeamsScanPage;

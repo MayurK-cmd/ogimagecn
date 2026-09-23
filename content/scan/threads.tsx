@@ -13,8 +13,8 @@ export const SECTIONS: ScanSection[] = [
         <p>
           Because the title and domain sit above the image rather than below,
           the card reads horizontally. A wide animated or multi-image logo can
-          come across as awkward here — the banner is the height constraint,
-          not the width.
+          come across as awkward here — the banner is the height constraint, not
+          the width.
         </p>
       </>
     ),

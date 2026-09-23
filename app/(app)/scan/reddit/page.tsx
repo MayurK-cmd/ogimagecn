@@ -24,7 +24,7 @@ export const metadata: Metadata = createPageMetadata({
   title: "Reddit Open Graph Preview",
 });
 
-const ScanRedditPage = () => (
+const RedditScanPage = () => (
   <PageTransition>
     <section className="container-wrapper relative">
       <div className="container flex flex-col gap-12 py-16 md:py-20 lg:py-24">
@@ -90,4 +90,4 @@ const ScanRedditPage = () => (
   </PageTransition>
 );
 
-export default ScanRedditPage;
+export default RedditScanPage;

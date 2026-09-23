@@ -24,7 +24,7 @@ export const metadata: Metadata = createPageMetadata({
   title: "Instagram Open Graph Preview",
 });
 
-const ScanInstagramPage = () => (
+const InstagramScanPage = () => (
   <PageTransition>
     <section className="container-wrapper relative">
       <div className="container flex flex-col gap-12 py-16 md:py-20 lg:py-24">
@@ -90,4 +90,4 @@ const ScanInstagramPage = () => (
   </PageTransition>
 );
 
-export default ScanInstagramPage;
+export default InstagramScanPage;

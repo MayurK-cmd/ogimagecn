@@ -17,7 +17,7 @@ import { otherScanPages, scanBreadcrumbs } from "@/lib/scan";
 import { BreadcrumbJsonLd, FaqJsonLd } from "@/seo/json-ld";
 import { createPageMetadata } from "@/seo/metadata";
 
-export const metaMetadata = createPageMetadata({
+export const metadata: Metadata = createPageMetadata({
   description:
     "Preview how your Open Graph image, title, and description appear in a Threads bookmark. Scan a URL and compare its previews across platforms.",
   path: ROUTES.SCAN_THREADS,

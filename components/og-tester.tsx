@@ -339,13 +339,8 @@ const PLATFORMS = [
     id: "threads",
     name: "Threads",
     render: (m: Meta, src: string) => (
-      <ThreadsPreview
-        description={m.description}
-        image={src}
-        title={m.title}
-        url={m.url}
-      />
-),
+      <ThreadsPreview image={src} title={m.title} url={m.url} />
+    ),
   },
   {
     icon: <SnapchatIcon />,

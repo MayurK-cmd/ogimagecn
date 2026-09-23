@@ -11,7 +11,6 @@ const host = (value: string) => {
 
 export interface ThreadsPreviewProps {
   className?: string;
-  description?: string;
   image: string;
   title?: string;
   url?: string;
@@ -20,7 +19,6 @@ export interface ThreadsPreviewProps {
 /* Threads renders a card similar to X: image on top, then title and domain. */
 export const ThreadsPreview = ({
   className,
-  description,
   image,
   title,
   url,

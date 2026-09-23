@@ -20,4 +20,5 @@ export const SCAN_PLATFORM_PAGES: ScanPlatformPage[] = [
   { href: ROUTES.SCAN_SNAPCHAT, id: "snapchat", name: "Snapchat" },
   { href: ROUTES.SCAN_TEAMS, id: "teams", name: "Microsoft Teams" },
   { href: ROUTES.SCAN_THREADS, id: "threads", name: "Threads" },
+  { href: ROUTES.SCAN_TIKTOK, id: "tiktok", name: "TikTok" },
 ];

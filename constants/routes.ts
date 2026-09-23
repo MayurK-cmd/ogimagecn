@@ -32,6 +32,7 @@ export const ROUTES = {
   SCAN_SNAPCHAT: "/scan/snapchat",
   SCAN_TEAMS: "/scan/teams",
   SCAN_THREADS: "/scan/threads",
+  SCAN_TIKTOK: "/scan/tiktok",
   SITEMAP: "/sitemap.xml",
   SPONSOR: "/sponsor",
 } as const;

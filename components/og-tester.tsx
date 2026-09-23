@@ -28,6 +28,7 @@ import {
   TelegramIcon,
   ThreadsIcon,
   TikTokIcon,
+  WeChatIcon,
   WhatsAppIcon,
   XIcon,
 } from "@/components/icons";
@@ -50,6 +51,7 @@ import { TeamsPreview } from "@/components/scan/teams-preview";
 import { TelegramPreview } from "@/components/scan/telegram-preview";
 import { ThreadsPreview } from "@/components/scan/threads-preview";
 import { TikTokPreview } from "@/components/scan/tiktok-preview";
+import { WeChatPreview } from "@/components/scan/wechat-preview";
 import { WhatsAppPreview } from "@/components/scan/whatsapp-preview";
 import { XPreview } from "@/components/scan/x-preview";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -370,6 +372,19 @@ const PLATFORMS = [
     name: "LINE",
     render: (m: Meta, src: string) => (
       <LINEPreview
+        description={m.description}
+        image={src}
+        title={m.title}
+        url={m.url}
+      />
+    ),
+  },
+  {
+    icon: <WeChatIcon />,
+    id: "wechat",
+    name: "WeChat",
+    render: (m: Meta, src: string) => (
+      <WeChatPreview
         description={m.description}
         image={src}
         title={m.title}

@@ -102,6 +102,11 @@ const CRAWLERS = [
     ua: "Mozilla/5.0 (compatible; Linespider/1.1; +https://lin.ee/4dwXkTH)",
   },
   {
+    id: "wechat",
+    label: "WeChat",
+    ua: "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.49(0x18003137) NetType/WIFI Language/zh_CN",
+  },
+  {
     id: "google",
     label: "Google",
     ua: "Googlebot/2.1 (+http://www.google.com/bot.html)",

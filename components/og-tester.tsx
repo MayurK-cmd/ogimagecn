@@ -25,6 +25,7 @@ import {
   TeamsIcon,
   TelegramIcon,
   ThreadsIcon,
+  TumblrIcon,
   WhatsAppIcon,
   XIcon,
 } from "@/components/icons";
@@ -44,6 +45,7 @@ import { SnapchatPreview } from "@/components/scan/snapchat-preview";
 import { TeamsPreview } from "@/components/scan/teams-preview";
 import { TelegramPreview } from "@/components/scan/telegram-preview";
 import { ThreadsPreview } from "@/components/scan/threads-preview";
+import { TumblrPreview } from "@/components/scan/tumblr-preview";
 import { WhatsAppPreview } from "@/components/scan/whatsapp-preview";
 import { XPreview } from "@/components/scan/x-preview";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -348,6 +350,19 @@ const PLATFORMS = [
     name: "Snapchat",
     render: (m: Meta, src: string) => (
       <SnapchatPreview image={src} title={m.title} url={m.url} />
+    ),
+  },
+  {
+    icon: <TumblrIcon />,
+    id: "tumblr",
+    name: "Tumblr",
+    render: (m: Meta, src: string) => (
+      <TumblrPreview
+        description={m.description}
+        image={src}
+        title={m.title}
+        url={m.url}
+      />
     ),
   },
   {

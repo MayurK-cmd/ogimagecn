@@ -92,6 +92,11 @@ const CRAWLERS = [
     ua: "Notionbot/1.0 (+https://www.notion.so)",
   },
   {
+    id: "tumblr",
+    label: "Tumblr",
+    ua: "Tumblr/14.0",
+  },
+  {
     id: "google",
     label: "Google",
     ua: "Googlebot/2.1 (+http://www.google.com/bot.html)",

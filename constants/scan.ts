@@ -10,6 +10,7 @@ export interface ScanPlatformPage {
 export const SCAN_PLATFORM_PAGES: ScanPlatformPage[] = [
   { href: ROUTES.SCAN_BLUESKY, id: "bluesky", name: "Bluesky" },
   { href: ROUTES.SCAN_GOOGLE, id: "google", name: "Google" },
+  { href: ROUTES.SCAN_IMESSAGE, id: "imessage", name: "iMessage" },
   { href: ROUTES.SCAN_INSTAGRAM, id: "instagram", name: "Instagram" },
   { href: ROUTES.SCAN_MASTODON, id: "mastodon", name: "Mastodon" },
   { href: ROUTES.SCAN_NOTION, id: "notion", name: "Notion" },

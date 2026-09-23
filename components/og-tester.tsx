@@ -15,6 +15,7 @@ import {
   FacebookIcon,
   InstagramIcon,
   GoogleIcon,
+  IMessageIcon,
   LinkedInIcon,
   MastodonIcon,
   NotionIcon,
@@ -32,6 +33,7 @@ import { BlueskyPreview } from "@/components/scan/bluesky-preview";
 import { DiscordPreview } from "@/components/scan/discord-preview";
 import { FacebookPreview } from "@/components/scan/facebook-preview";
 import { GooglePreview } from "@/components/scan/google-preview";
+import { IMessagePreview } from "@/components/scan/imessage-preview";
 import { InstagramPreview } from "@/components/scan/instagram-preview";
 import { LinkedInPreview } from "@/components/scan/linkedin-preview";
 import { MastodonPreview } from "@/components/scan/mastodon-preview";
@@ -348,6 +350,19 @@ const PLATFORMS = [
     name: "Snapchat",
     render: (m: Meta, src: string) => (
       <SnapchatPreview image={src} title={m.title} url={m.url} />
+    ),
+  },
+  {
+    icon: <IMessageIcon />,
+    id: "imessage",
+    name: "iMessage",
+    render: (m: Meta, src: string) => (
+      <IMessagePreview
+        image={src}
+        siteName={m.siteName}
+        title={m.title}
+        url={m.url}
+      />
     ),
   },
   {

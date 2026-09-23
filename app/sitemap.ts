@@ -100,6 +100,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       lastModified: new Date(),
       priority: 0.7,
+      url: `${SITE.URL}${ROUTES.SCAN_IMESSAGE}`,
+    },
+    {
+      changeFrequency: "monthly",
+      lastModified: new Date(),
+      priority: 0.7,
       url: `${SITE.URL}${ROUTES.SCAN_SIGNAL}`,
     },
   ];

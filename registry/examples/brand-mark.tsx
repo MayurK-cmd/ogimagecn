@@ -1,5 +1,5 @@
-import type { ControlConfig } from "@/lib/customizer-config";
-import { BrandMark } from "@/registry/og/ui/brand-mark";
+import { BrandMark } from "@/components/og/brand-mark";
+import type { ControlConfig } from "@/registry/lib/customizer-config";
 
 export const brandMarkDemoConfig: ControlConfig = {
   background: { default: "#7c3aed", label: "Background", type: "color" },

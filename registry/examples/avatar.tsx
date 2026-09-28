@@ -1,5 +1,5 @@
-import type { ControlConfig } from "@/lib/customizer-config";
-import { Avatar } from "@/registry/og/ui/avatar";
+import { Avatar } from "@/components/og/avatar";
+import type { ControlConfig } from "@/registry/lib/customizer-config";
 
 export const avatarDemoConfig: ControlConfig = {
   background: { default: "#7c3aed", label: "Background", type: "color" },

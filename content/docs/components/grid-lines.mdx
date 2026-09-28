@@ -5,8 +5,6 @@ description: Four edge-to-edge guide lines that frame the canvas.
 
 <ComponentPreview name="grid-lines" hideCode />
 
-Draws two vertical and two horizontal 1px lines, each `inset` pixels from its edge, for a technical, blueprint-style frame.
-
 ## Installation
 
 <CodeTabs>
@@ -29,7 +27,9 @@ npx shadcn@latest add @ogimagecn/grid-lines
 
 <Step>Copy and paste the following code into your project.</Step>
 
-<ComponentSource name="grid-lines" title="components/og/ui/grid-lines.tsx" />
+<ComponentSource name="grid-lines" title="components/og/grid-lines.tsx" />
+
+<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -40,7 +40,7 @@ npx shadcn@latest add @ogimagecn/grid-lines
 ## Usage
 
 ```tsx
-import { GridLines } from "@/components/og/ui/grid-lines";
+import { GridLines } from "@/components/og/grid-lines";
 
 <div
   style={{

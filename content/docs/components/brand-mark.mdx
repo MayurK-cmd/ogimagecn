@@ -5,8 +5,6 @@ description: A logo image with a placeholder tile fallback for monograms or icon
 
 <ComponentPreview name="brand-mark" hideCode />
 
-Renders the logo when `src` is set. Otherwise it renders a tile you can fill with a monogram or an icon, so a card still looks finished before a logo is uploaded.
-
 ## Installation
 
 <CodeTabs>
@@ -29,7 +27,9 @@ npx shadcn@latest add @ogimagecn/brand-mark
 
 <Step>Copy and paste the following code into your project.</Step>
 
-<ComponentSource name="brand-mark" title="components/og/ui/brand-mark.tsx" />
+<ComponentSource name="brand-mark" title="components/og/brand-mark.tsx" />
+
+<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -40,7 +40,7 @@ npx shadcn@latest add @ogimagecn/brand-mark
 ## Usage
 
 ```tsx
-import { BrandMark } from "@/components/og/ui/brand-mark";
+import { BrandMark } from "@/components/og/brand-mark";
 
 <BrandMark src={logoUrl} size={40} radius={8} background="#7c3aed">
   A

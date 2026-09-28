@@ -33,10 +33,4 @@ export const PAGES_NEW: string[] = [
   `${ROUTES.DOCS_COMPONENTS}/badge`,
   `${ROUTES.DOCS_COMPONENTS}/brand-mark`,
   `${ROUTES.DOCS_COMPONENTS}/grid-lines`,
-  `${ROUTES.DOCS_BLOCKS}/shadcn-registry/1`,
-  `${ROUTES.DOCS_BLOCKS}/shadcn-registry/2`,
-  `${ROUTES.DOCS_BLOCKS}/shadcn-registry/3`,
-  `${ROUTES.DOCS_BLOCKS}/shadcn-registry/4`,
-  `${ROUTES.DOCS_BLOCKS}/shadcn-registry/5`,
-  `${ROUTES.DOCS_BLOCKS}/shadcn-registry/6`,
 ];

@@ -5,8 +5,6 @@ description: A pill label with color, background, border, and uppercase options.
 
 <ComponentPreview name="badge" hideCode />
 
-A pill for categories, versions, prices, and status labels. Children can mix text with a dot or an inline SVG icon; they are spaced by a `12px` gap.
-
 ## Installation
 
 <CodeTabs>
@@ -29,7 +27,9 @@ npx shadcn@latest add @ogimagecn/badge
 
 <Step>Copy and paste the following code into your project.</Step>
 
-<ComponentSource name="badge" title="components/og/ui/badge.tsx" />
+<ComponentSource name="badge" title="components/og/badge.tsx" />
+
+<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -40,7 +40,7 @@ npx shadcn@latest add @ogimagecn/badge
 ## Usage
 
 ```tsx
-import { Badge } from "@/components/og/ui/badge";
+import { Badge } from "@/components/og/badge";
 
 <Badge background="rgba(124,58,237,0.15)" color="#7c3aed" uppercase>
   Engineering

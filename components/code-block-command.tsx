@@ -112,7 +112,7 @@ export const CodeBlockCommand = ({
               </TabsTrigger>
             ))}
           </TabsList>
-          <div className="flex items-center gap-2 text-muted-foreground md:hidden">
+          <div className="flex items-center gap-2 md:hidden">
             {getIconForCommandTab(activeTab)}
             <Select onValueChange={handleTabChange} value={activeTab}>
               <SelectTrigger

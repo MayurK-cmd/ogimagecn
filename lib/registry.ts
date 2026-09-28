@@ -12,7 +12,11 @@ export const readOptionalFromRoot = async (
   }
 };
 
-// Blocks live at registry/og/<name>.tsx, components at registry/og/ui/<name>.tsx.
+// Blocks live at registry/blocks/<name>/index.tsx (with a colocated config.ts
+// that is never distributed); components at registry/components/<name>.tsx.
+// Both ship to components/og/<name>.tsx via their registry.json target.
 export const getRegistrySource = async (name: string): Promise<string | null> =>
-  (await readOptionalFromRoot(path.join("registry", "og", `${name}.tsx`))) ??
-  readOptionalFromRoot(path.join("registry", "og", "ui", `${name}.tsx`));
+  (await readOptionalFromRoot(
+    path.join("registry", "blocks", name, "index.tsx")
+  )) ??
+  readOptionalFromRoot(path.join("registry", "components", `${name}.tsx`));

@@ -5,8 +5,6 @@ description: A circular avatar image with an initials fallback.
 
 <ComponentPreview name="avatar" hideCode />
 
-Shows a person's photo, or their initials on a solid circle when no photo is set. The initials text is sized from `size` automatically.
-
 ## Installation
 
 <CodeTabs>
@@ -29,7 +27,9 @@ npx shadcn@latest add @ogimagecn/avatar
 
 <Step>Copy and paste the following code into your project.</Step>
 
-<ComponentSource name="avatar" title="components/og/ui/avatar.tsx" />
+<ComponentSource name="avatar" title="components/og/avatar.tsx" />
+
+<Step>Update the import paths to match your project setup.</Step>
 
 </Steps>
 
@@ -40,7 +40,7 @@ npx shadcn@latest add @ogimagecn/avatar
 ## Usage
 
 ```tsx
-import { Avatar } from "@/components/og/ui/avatar";
+import { Avatar } from "@/components/og/avatar";
 
 <Avatar name="Ada Lovelace" src={avatarUrl} size={72} />;
 ```

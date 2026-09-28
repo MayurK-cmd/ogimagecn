@@ -136,6 +136,13 @@ const nextConfig = {
       redirect(`${ROUTES.DOCS}/:path*.mdx`, `${ROUTES.DOCS}/:path*.md`),
     ];
   },
+  // Registry sources ship to @/components/og/* in user projects; alias them
+  // back to registry/components here so the repo resolves the same imports.
+  turbopack: {
+    resolveAlias: {
+      "@/components/og": "./registry/components",
+    },
+  },
 };
 
 const withMDX = createMDX({});

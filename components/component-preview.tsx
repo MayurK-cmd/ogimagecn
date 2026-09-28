@@ -14,9 +14,9 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { getDefaults } from "@/lib/customizer-config";
 import { cn } from "@/lib/utils";
 import registry from "@/registry/__index__";
+import { getDefaults } from "@/registry/lib/customizer-config";
 
 const OG_WIDTH = 1200;
 const OG_HEIGHT = 630;

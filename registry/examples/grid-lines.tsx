@@ -1,5 +1,5 @@
-import type { ControlConfig } from "@/lib/customizer-config";
-import { GridLines } from "@/registry/og/ui/grid-lines";
+import { GridLines } from "@/components/og/grid-lines";
+import type { ControlConfig } from "@/registry/lib/customizer-config";
 
 export const gridLinesDemoConfig: ControlConfig = {
   color: { default: "#78716c", label: "Color", type: "color" },

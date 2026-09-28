@@ -1,5 +1,5 @@
-import type { ControlConfig } from "@/lib/customizer-config";
-import { Badge } from "@/registry/og/ui/badge";
+import { Badge } from "@/components/og/badge";
+import type { ControlConfig } from "@/registry/lib/customizer-config";
 
 export const badgeDemoConfig: ControlConfig = {
   color: { default: "#34d399", label: "Color", type: "color" },

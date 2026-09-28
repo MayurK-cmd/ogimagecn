@@ -1,7 +1,7 @@
 import { lookup } from "node:dns/promises";
 import { isIP } from "node:net";
 
-import { resolvePreviewAssets } from "@/lib/og-test-urls";
+import { resolveUrl } from "@/lib/url";
 
 /**
  * Fetch a page as each social crawler sees it, then fetch the card it points
@@ -473,11 +473,17 @@ export const POST = async (request: Request) => {
   const read = pages.filter((p) => p.meta);
   const foundPage = read.find((p) => p.meta?.image) ?? read[0];
   const found = foundPage?.meta ?? null;
-  const { imageUrl, meta } = resolvePreviewAssets(
-    foundPage && found
-      ? { finalUrl: foundPage.finalUrl, meta: found }
-      : undefined
-  );
+  /* Resolve against the final URL after redirects, not the submitted one. */
+  const base = foundPage?.finalUrl ?? target;
+  const imageUrl = resolveUrl(found?.image ?? "", base);
+  const meta = found
+    ? {
+        ...found,
+        icon: resolveUrl(found.icon, base),
+        ogImage: resolveUrl(found.ogImage, base),
+        twitterImage: resolveUrl(found.twitterImage, base),
+      }
+    : null;
 
   // 2. the card itself, as each crawler. A page that unfurls everywhere and an
   //    image that 403s to one of them is the failure people actually hit.

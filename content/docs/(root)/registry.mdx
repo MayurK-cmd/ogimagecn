@@ -21,7 +21,14 @@ You can replace `@ogimagecn` with another namespace; it only needs to match what
 
 ## Usage
 
-Install a block or component using the namespace and the item `name` (same as the JSON file under `/r/` without `.json`). Blocks list the components they use as `registryDependencies`, so the CLI installs those too:
+Items are addressed by the item `name`, the same as the JSON file under `/r/` without `.json`.
+
+Registry files follow this destination:
+
+- Blocks install into `components/og/`.
+- Components install into `components/og/ui/`.
+
+Blocks list the components they use as `registryDependencies`, so the CLI installs those too:
 
 ```bash
 npx shadcn@latest add @ogimagecn/blog

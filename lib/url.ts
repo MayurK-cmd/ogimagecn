@@ -16,3 +16,14 @@ export const addQueryParams = (
     return urlString;
   }
 };
+
+export const resolveUrl = (href: string, base: string) => {
+  if (!href) {
+    return "";
+  }
+  try {
+    return new URL(href, base).toString();
+  } catch {
+    return "";
+  }
+};

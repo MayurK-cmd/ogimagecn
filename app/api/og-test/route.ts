@@ -1,6 +1,8 @@
 import { lookup } from "node:dns/promises";
 import { isIP } from "node:net";
 
+import { resolveUrl } from "@/lib/url";
+
 /**
  * Fetch a page as each social crawler sees it, then fetch the card it points
  * at the same way.
@@ -61,7 +63,11 @@ const CRAWLERS = [
   { id: "x", label: "X", ua: "Twitterbot/1.0" },
   { id: "linkedin", label: "LinkedIn", ua: "LinkedInBot/1.0" },
   { id: "slack", label: "Slack", ua: "Slackbot-LinkExpanding 1.0" },
-  { id: "snapchat", label: "Snapchat", ua: "SnapchatBot/1.0" },
+  {
+    id: "snapchat",
+    label: "Snapchat",
+    ua: "Snap URL Preview Service; bot; snapchat; https://developers.snap.com/robots",
+  },
   { id: "discord", label: "Discord", ua: "Discordbot/2.0" },
   {
     id: "teams",
@@ -81,11 +87,7 @@ const CRAWLERS = [
     label: "Mastodon",
     ua: "Mastodon/4.8.0-alpha.3 (http.rb/5.3.1; +https://mastodon.social/) Bot",
   },
-  {
-    id: "threads",
-    label: "Threads",
-    ua: "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Threads/1.0",
-  },
+  { id: "threads", label: "Threads", ua: "facebookexternalhit/1.1" },
   {
     id: "notion",
     label: "Notion",
@@ -113,11 +115,7 @@ const CRAWLERS = [
     label: "TikTok",
     ua: "Mozilla/5.0 (compatible; TikTokSpider; ttspider-feedback@tiktok.com)",
   },
-  {
-    id: "line",
-    label: "LINE",
-    ua: "Mozilla/5.0 (compatible; Linespider/1.1; +https://lin.ee/4dwXkTH)",
-  },
+  { id: "line", label: "LINE", ua: "facebookexternalhit/1.1;line-poker/1.0" },
   {
     id: "wechat",
     label: "WeChat",
@@ -222,16 +220,56 @@ const readMeta = (html: string) => {
     const m = html.match(re);
     return m ? (m[1] ?? m[2] ?? "").trim() : "";
   };
+  /* The declared favicon, if any. <link rel="icon" ...> wins and the
+     apple-touch-icon is the fallback. data: URIs are skipped: they can be
+     huge and are useless to a preview. Resolved against the page URL later. */
+  const pickIcon = () => {
+    const tags = html.match(/<link[^>]*>/gi) ?? [];
+    let fallback = "";
+    for (const tag of tags) {
+      const rel =
+        tag
+          .match(/rel=["']([^"']*)["']/i)?.[1]
+          ?.toLowerCase()
+          .split(/\s+/) ?? [];
+      if (!rel.includes("icon") && !rel.includes("apple-touch-icon")) {
+        continue;
+      }
+      const href = tag.match(/href=["']([^"']*)["']/i)?.[1]?.trim() ?? "";
+      if (!href || href.startsWith("data:")) {
+        continue;
+      }
+      if (rel.includes("icon")) {
+        return href;
+      }
+      fallback ||= href;
+    }
+    return fallback;
+  };
+  const htmlTitle = (html.match(/<title[^>]*>([^<]*)</i)?.[1] ?? "").trim();
+  const metaDescription = pick("description");
+  const ogTitle = pick("og:title");
+  const ogDescription = pick("og:description");
+  const ogImage = pick("og:image");
+  const twitterImage = pick("twitter:image") || pick("twitter:image:src");
   return {
     card: pick("twitter:card"),
-    description: pick("og:description") || pick("description"),
+    description: ogDescription || metaDescription,
     height: pick("og:image:height"),
-    image: pick("og:image") || pick("twitter:image"),
+    htmlTitle,
+    icon: pickIcon(),
+    image: ogImage || twitterImage,
+    metaDescription,
+    ogDescription,
+    ogImage,
+    ogTitle,
     siteName: pick("og:site_name"),
-    title:
-      pick("og:title") ||
-      (html.match(/<title[^>]*>([^<]*)</i)?.[1] ?? "").trim(),
+    title: ogTitle || htmlTitle,
+    twitterDescription: pick("twitter:description"),
+    twitterImage,
+    twitterTitle: pick("twitter:title"),
     url: pick("og:url"),
+    wechatSdk: /res\d*\.wx\.qq\.com\/open\/js\/jweixin/i.test(html),
     width: pick("og:image:width"),
   };
 };
@@ -433,8 +471,19 @@ export const POST = async (request: Request) => {
   /* Prefer a crawler that saw an image, but keep the tags either way: the
      Google result is built from title and description alone. */
   const read = pages.filter((p) => p.meta);
-  const found = read.find((p) => p.meta?.image)?.meta ?? read[0]?.meta ?? null;
-  const imageUrl = found?.image ? new URL(found.image, target).toString() : "";
+  const foundPage = read.find((p) => p.meta?.image) ?? read[0];
+  const found = foundPage?.meta ?? null;
+  /* Resolve against the final URL after redirects, not the submitted one. */
+  const base = foundPage?.finalUrl ?? target;
+  const imageUrl = resolveUrl(found?.image ?? "", base);
+  const meta = found
+    ? {
+        ...found,
+        icon: resolveUrl(found.icon, base),
+        ogImage: resolveUrl(found.ogImage, base),
+        twitterImage: resolveUrl(found.twitterImage, base),
+      }
+    : null;
 
   // 2. the card itself, as each crawler. A page that unfurls everywhere and an
   //    image that 403s to one of them is the failure people actually hit.
@@ -484,7 +533,7 @@ export const POST = async (request: Request) => {
   const findings = buildFindings(found, images, imageUrl);
 
   return Response.json(
-    { findings, imageUrl, images, meta: found, pages, url: target },
+    { findings, imageUrl, images, meta, pages, url: target },
     { headers: { "Cache-Control": "no-store" } }
   );
 };

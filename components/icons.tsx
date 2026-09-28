@@ -886,27 +886,11 @@ export const getIconForPackageManager = (manager: PackageManager) => {
 };
 
 export const getIconForCommandTab = (tab: CommandTab) => {
-  switch (tab) {
-    case "pnpm": {
-      return <PnpmIcon />;
-    }
-    case "yarn": {
-      return <YarnIcon />;
-    }
-    case "npm": {
-      return <NpmIcon />;
-    }
-    case "bun": {
-      return <BunIcon />;
-    }
-    case "shadcn": {
-      return <ShadcnIcon />;
-    }
-    case "prompt": {
-      return <TextIcon className="size-4" />;
-    }
-    default: {
-      return <TerminalSquareIcon />;
-    }
+  if (tab === "shadcn") {
+    return <ShadcnIcon />;
   }
+  if (tab === "prompt") {
+    return <TextIcon className="size-4" />;
+  }
+  return getIconForPackageManager(tab);
 };

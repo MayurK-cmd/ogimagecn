@@ -52,12 +52,12 @@ export const CodeBlockCommand = ({
     }
 
     return [
-      ...packageManagerTabs,
+      { command: buildAgentPrompt(__npm__), value: "prompt" },
       {
         command: __npm__.replace(SHADCN_NPX_PREFIX, "shadcn "),
         value: "shadcn",
       },
-      { command: buildAgentPrompt(__npm__), value: "prompt" },
+      ...packageManagerTabs,
     ];
   }, [__bun__, __npm__, __pnpm__, __yarn__]);
 

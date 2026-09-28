@@ -4,6 +4,13 @@ import { useCallback, useMemo } from "react";
 
 import { CopyButton } from "@/components/copy-button";
 import { getIconForCommandTab } from "@/components/icons";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import type { PackageManager, CommandTab } from "@/hooks/use-package-manager";
 import {
@@ -91,7 +98,7 @@ export const CodeBlockCommand = ({
     >
       <Tabs className="gap-0" onValueChange={handleTabChange} value={activeTab}>
         <div className="border-border/50 flex items-center gap-2 border-b px-3 py-1">
-          <TabsList className="rounded-none bg-transparent p-0 [&_svg]:me-2 [&_svg]:size-4 [&_svg]:text-muted-foreground">
+          <TabsList className="hidden rounded-none bg-transparent p-0 md:inline-flex [&_svg]:me-2 [&_svg]:size-4 [&_svg]:text-muted-foreground">
             {getIconForCommandTab(activeTab)}
 
             {tabs.map((tab) => (
@@ -105,6 +112,25 @@ export const CodeBlockCommand = ({
               </TabsTrigger>
             ))}
           </TabsList>
+          <div className="flex items-center gap-2 text-muted-foreground md:hidden">
+            {getIconForCommandTab(activeTab)}
+            <Select onValueChange={handleTabChange} value={activeTab}>
+              <SelectTrigger
+                aria-label="Command"
+                size="sm"
+                className="font-sans bg-background px-2.5 my-0.5 shadow-none dark:bg-background dark:hover:bg-background"
+              >
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {tabs.map((tab) => (
+                  <SelectItem key={tab.value} value={tab.value}>
+                    {tab.value}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
         </div>
         <div className={cn("no-scrollbar", !isPromptTab && "overflow-x-auto")}>
           {tabs.map((tab) => (

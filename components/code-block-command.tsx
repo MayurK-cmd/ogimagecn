@@ -3,12 +3,23 @@
 import { useCallback, useMemo } from "react";
 
 import { CopyButton } from "@/components/copy-button";
-import { getIconForPackageManager } from "@/components/icons";
+import { getIconForCommandTab } from "@/components/icons";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import type { PackageManager } from "@/hooks/use-package-manager";
-import { usePackageManager } from "@/hooks/use-package-manager";
+import type { PackageManager, CommandTab } from "@/hooks/use-package-manager";
+import {
+  useSetPackageManager,
+  useCommandTab,
+} from "@/hooks/use-package-manager";
 import type { Event } from "@/lib/events";
 import { cn } from "@/lib/utils";
+
+const SHADCN_NPX_PREFIX = "npx shadcn@latest ";
+
+const isPackageManagerTab = (tab: CommandTab): tab is PackageManager =>
+  tab === "npm" || tab === "yarn" || tab === "pnpm" || tab === "bun";
+
+const buildAgentPrompt = (command: string) =>
+  `Run \`${command}\` in this project to install it with the shadcn CLI. Don't rewrite the files it adds; if the command fails, show me the error.`;
 
 export const CodeBlockCommand = ({
   __npm__,
@@ -25,27 +36,51 @@ export const CodeBlockCommand = ({
   className?: string;
   copyEvent?: Event["name"];
 }) => {
-  const [packageManager, setPackageManager] = usePackageManager();
+  const setPackageManager = useSetPackageManager();
+  const [commandTab, setCommandTab] = useCommandTab();
 
-  const commandTabs = useMemo(
-    () => ({
-      bun: __bun__,
-      npm: __npm__,
-      pnpm: __pnpm__,
-      yarn: __yarn__,
-    }),
-    [__npm__, __pnpm__, __yarn__, __bun__]
+  const tabs = useMemo(() => {
+    const packageManagerTabs = [
+      { command: __bun__, value: "bun" },
+      { command: __npm__, value: "npm" },
+      { command: __pnpm__, value: "pnpm" },
+      { command: __yarn__, value: "yarn" },
+    ] satisfies { command: string | undefined; value: CommandTab }[];
+
+    if (!__npm__?.startsWith(SHADCN_NPX_PREFIX)) {
+      return packageManagerTabs;
+    }
+
+    return [
+      ...packageManagerTabs,
+      {
+        command: __npm__.replace(SHADCN_NPX_PREFIX, "shadcn "),
+        value: "shadcn",
+      },
+      { command: buildAgentPrompt(__npm__), value: "prompt" },
+    ];
+  }, [__bun__, __npm__, __pnpm__, __yarn__]);
+
+  const handleTabChange = useCallback(
+    (value: string) => {
+      const tab = value as CommandTab;
+      setCommandTab(tab);
+
+      if (isPackageManagerTab(tab)) {
+        setPackageManager(tab);
+      }
+    },
+    [setCommandTab, setPackageManager]
   );
 
-  const handlePackageManagerChange = useCallback(
-    (value: string) => setPackageManager(value as PackageManager),
-    [setPackageManager]
+  const activeTab = useMemo<CommandTab>(
+    () => (tabs.some((tab) => tab.value === commandTab) ? commandTab : "npm"),
+    [commandTab, tabs]
   );
 
-  const copyValue = useMemo(
-    () => commandTabs[packageManager] || "",
-    [commandTabs, packageManager]
-  );
+  const copyValue = tabs.find((tab) => tab.value === activeTab)?.command ?? "";
+
+  const isPromptTab = activeTab === "prompt";
 
   return (
     <div
@@ -54,40 +89,49 @@ export const CodeBlockCommand = ({
         className
       )}
     >
-      <Tabs
-        className="gap-0"
-        onValueChange={handlePackageManagerChange}
-        value={packageManager}
-      >
+      <Tabs className="gap-0" onValueChange={handleTabChange} value={activeTab}>
         <div className="border-border/50 flex items-center gap-2 border-b px-3 py-1">
           <TabsList className="rounded-none bg-transparent p-0 [&_svg]:me-2 [&_svg]:size-4 [&_svg]:text-muted-foreground">
-            {getIconForPackageManager(packageManager)}
+            {getIconForCommandTab(activeTab)}
 
-            {Object.entries(commandTabs).map(([key]) => (
+            {tabs.map((tab) => (
               <TabsTrigger
-                key={key}
+                key={tab.value}
                 className="data-[state=active]:border-input h-7 border border-transparent pt-0.5 data-[state=active]:shadow-none"
                 sound="tabSwitch"
-                value={key}
+                value={tab.value}
               >
-                {key}
+                {tab.value}
               </TabsTrigger>
             ))}
           </TabsList>
         </div>
-        <div className="no-scrollbar overflow-x-auto">
-          {Object.entries(commandTabs).map(([key, value]) => (
-            <TabsContent key={key} className="mt-0 px-4 py-3.5" value={key}>
-              <pre>
-                <code
+        <div className={cn("no-scrollbar", !isPromptTab && "overflow-x-auto")}>
+          {tabs.map((tab) => (
+            <TabsContent
+              key={tab.value}
+              className="mt-0 px-4 py-3.5"
+              value={tab.value}
+            >
+              {tab.value === "prompt" ? (
+                <p
                   data-slot="code-block"
-                  data-language="bash"
-                  className="font-mono text-sm/none"
+                  className="text-sm/relaxed whitespace-normal"
                 >
-                  <span className="select-none">$ </span>
-                  {value}
-                </code>
-              </pre>
+                  {tab.command}
+                </p>
+              ) : (
+                <pre>
+                  <code
+                    data-slot="code-block"
+                    data-language="bash"
+                    className="font-mono text-sm/none"
+                  >
+                    <span className="select-none">$ </span>
+                    {tab.command}
+                  </code>
+                </pre>
+              )}
             </TabsContent>
           ))}
         </div>
@@ -95,7 +139,7 @@ export const CodeBlockCommand = ({
       <CopyButton
         className="absolute top-2 right-2 z-10 size-7 opacity-70 hover:opacity-100 focus-visible:opacity-100"
         value={copyValue}
-        event={copyEvent}
+        event={isPromptTab ? "copy_agent_prompt" : copyEvent}
       />
     </div>
   );

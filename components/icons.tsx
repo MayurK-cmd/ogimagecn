@@ -1,6 +1,6 @@
-import { FileIcon, TerminalSquareIcon } from "lucide-react";
+import { FileIcon, TerminalSquareIcon, TextIcon } from "lucide-react";
 
-import type { PackageManager } from "@/hooks/use-package-manager";
+import type { PackageManager, CommandTab } from "@/hooks/use-package-manager";
 import { cn } from "@/lib/utils";
 
 export const WhatsAppIcon = ({
@@ -517,6 +517,27 @@ export const BunIcon = ({
   </svg>
 );
 
+export const ShadcnIcon = ({
+  className,
+  ...props
+}: React.ComponentProps<"svg">) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 256 256"
+    className={cn("size-4", className)}
+    {...props}
+  >
+    <path fill="none" d="M0 0h256v256H0z" />
+    <path
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="25"
+      strokeLinecap="round"
+      d="M208 128l-80 80M192 40L40 192"
+    />
+  </svg>
+);
+
 export const ChatGptIcon = ({
   className,
   ...props
@@ -857,6 +878,32 @@ export const getIconForPackageManager = (manager: PackageManager) => {
     }
     case "bun": {
       return <BunIcon />;
+    }
+    default: {
+      return <TerminalSquareIcon />;
+    }
+  }
+};
+
+export const getIconForCommandTab = (tab: CommandTab) => {
+  switch (tab) {
+    case "pnpm": {
+      return <PnpmIcon />;
+    }
+    case "yarn": {
+      return <YarnIcon />;
+    }
+    case "npm": {
+      return <NpmIcon />;
+    }
+    case "bun": {
+      return <BunIcon />;
+    }
+    case "shadcn": {
+      return <ShadcnIcon />;
+    }
+    case "prompt": {
+      return <TextIcon className="size-4" />;
     }
     default: {
       return <TerminalSquareIcon />;

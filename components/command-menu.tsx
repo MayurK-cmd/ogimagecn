@@ -41,7 +41,10 @@ import {
   isBlocksFolder,
 } from "@/lib/docs";
 import { trackEvent } from "@/lib/events";
-import { getFolderGroups, getPagesFromFolder } from "@/lib/page-tree";
+import {
+  getFolderGroups,
+  getPagesFromFolderWithoutIndex,
+} from "@/lib/page-tree";
 import type { PageTreeFolder, PageTreePage } from "@/lib/page-tree";
 import { cn } from "@/lib/utils";
 
@@ -204,7 +207,7 @@ export const CommandMenu = ({
         continue;
       }
 
-      addTreeGroup(groups, item, getPagesFromFolder(item));
+      addTreeGroup(groups, item, getPagesFromFolderWithoutIndex(item));
     }
 
     return groups;

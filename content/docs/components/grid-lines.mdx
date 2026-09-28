@@ -41,7 +41,9 @@ npx shadcn@latest add @ogimagecn/grid-lines
 
 ```tsx
 import { GridLines } from "@/components/og/grid-lines";
+```
 
+```tsx
 <div
   style={{
     display: "flex",
@@ -52,7 +54,7 @@ import { GridLines } from "@/components/og/grid-lines";
 >
   <GridLines inset={64} color="#44403c" variant="dashed" />
   {/* content */}
-</div>;
+</div>
 ```
 
 Satori has no `z-index`: place `GridLines` first inside a `position: "relative"` parent so later siblings paint above it.

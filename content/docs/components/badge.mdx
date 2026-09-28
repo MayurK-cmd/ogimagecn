@@ -41,10 +41,12 @@ npx shadcn@latest add @ogimagecn/badge
 
 ```tsx
 import { Badge } from "@/components/og/badge";
+```
 
+```tsx
 <Badge background="rgba(124,58,237,0.15)" color="#7c3aed" uppercase>
   Engineering
-</Badge>;
+</Badge>
 ```
 
 Satori is flexbox-only, so a badge inside a `flexDirection: "column"` parent stretches to the full width. Pass `style={{ alignSelf: "flex-start" }}` to keep it hugging its content.

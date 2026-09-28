@@ -41,10 +41,12 @@ npx shadcn@latest add @ogimagecn/brand-mark
 
 ```tsx
 import { BrandMark } from "@/components/og/brand-mark";
+```
 
+```tsx
 <BrandMark src={logoUrl} size={40} radius={8} background="#7c3aed">
   A
-</BrandMark>;
+</BrandMark>
 ```
 
 Satori decodes PNG, JPEG, and GIF only. Convert WebP and AVIF logos before passing them in.
@@ -52,10 +54,10 @@ Satori decodes PNG, JPEG, and GIF only. Convert WebP and AVIF logos before passi
 ## API Reference
 
 | Prop         | Type                   | Default     |
-| ------------ | ---------------------- | ----------- | --- |
+| ------------ | ---------------------- | ----------- |
 | `src`        | `string`               | —           |
 | `size`       | `number`               | `40`        |
-| `radius`     | `number                | string`     | `8` |
+| `radius`     | `number \| string`     | `8`         |
 | `background` | `string`               | —           |
 | `fit`        | `"contain" \| "cover"` | `"contain"` |
 | `children`   | `ReactNode`            | —           |

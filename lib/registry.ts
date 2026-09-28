@@ -12,24 +12,11 @@ export const readOptionalFromRoot = async (
   }
 };
 
-export const getRegistryUiSourceCandidates = ({ name }: { name: string }) => [
-  path.join("registry", "components", name, "index.tsx"),
-];
-
-export const getDemoSource = (name: string): Promise<string | null> =>
-  readOptionalFromRoot(path.join("examples", `${name}.tsx`));
-
-export const getRegistrySource = async (
-  name: string
-): Promise<string | null> => {
-  const candidates = getRegistryUiSourceCandidates({ name });
-
-  for (const candidate of candidates) {
-    const code = await readOptionalFromRoot(candidate);
-    if (code) {
-      return code;
-    }
-  }
-
-  return null;
-};
+// Blocks live at registry/blocks/<name>/index.tsx (with a colocated config.ts
+// that is never distributed); components at registry/components/<name>.tsx.
+// Both ship to components/og/<name>.tsx via their registry.json target.
+export const getRegistrySource = async (name: string): Promise<string | null> =>
+  (await readOptionalFromRoot(
+    path.join("registry", "blocks", name, "index.tsx")
+  )) ??
+  readOptionalFromRoot(path.join("registry", "components", `${name}.tsx`));

@@ -1,0 +1,59 @@
+---
+title: Avatar
+description: A circular avatar image with an initials fallback.
+---
+
+<ComponentPreview name="avatar" hideCode />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @ogimagecn/avatar
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="avatar" title="components/og/avatar.tsx" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Avatar } from "@/components/og/avatar";
+```
+
+```tsx
+<Avatar name="Ada Lovelace" src={avatarUrl} size={72} />
+```
+
+## API Reference
+
+| Prop         | Type            | Default     |
+| ------------ | --------------- | ----------- |
+| `name`       | `string`        | —           |
+| `src`        | `string`        | —           |
+| `size`       | `number`        | `72`        |
+| `background` | `string`        | `"#7c3aed"` |
+| `color`      | `string`        | `"#ffffff"` |
+| `style`      | `CSSProperties` | —           |

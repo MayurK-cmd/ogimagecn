@@ -9,8 +9,8 @@ import {
   NativeSelect,
   NativeSelectOption,
 } from "@/components/ui/native-select";
-import type { ControlConfig } from "@/lib/customizer-config";
 import { cn } from "@/lib/utils";
+import type { ControlConfig } from "@/registry/lib/customizer-config";
 
 interface ComponentCustomizerProps {
   controls: ControlConfig;

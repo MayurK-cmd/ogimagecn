@@ -29,10 +29,12 @@ export const Divider = ({
     >
       <div style={{ borderTop: rule, display: "flex", flexGrow: 1 }} />
       {label && (
-        <>
-          <div style={{ display: "flex", padding: "0 20px" }}>{label}</div>
-          <div style={{ borderTop: rule, display: "flex", flexGrow: 1 }} />
-        </>
+        <div style={{ display: "flex", flexShrink: 0, padding: "0 20px" }}>
+          {label}
+        </div>
+      )}
+      {label && (
+        <div style={{ borderTop: rule, display: "flex", flexGrow: 1 }} />
       )}
     </div>
   );

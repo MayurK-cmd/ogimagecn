@@ -48,6 +48,7 @@ import {
   BrandMarkDemo,
   brandMarkDemoConfig,
 } from "@/registry/examples/brand-mark";
+import { DividerDemo, dividerDemoConfig } from "@/registry/examples/divider";
 import {
   GridLinesDemo,
   gridLinesDemoConfig,
@@ -69,6 +70,7 @@ const registry: Record<string, RegistryEntry> = {
   blog: { Component: Blog, config: blogConfig },
   "brand-mark": { Component: BrandMarkDemo, config: brandMarkDemoConfig },
   changelog: { Component: Changelog, config: changelogConfig },
+  divider: { Component: DividerDemo, config: dividerDemoConfig },
   editorial: { Component: Editorial, config: editorialConfig },
   event: { Component: Event, config: eventConfig },
   grid: { Component: Grid, config: gridConfig },

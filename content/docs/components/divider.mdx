@@ -1,0 +1,64 @@
+---
+title: Divider
+description: A solid or dashed rule with an optional centered label.
+---
+
+<ComponentPreview name="divider" hideCode />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">Command</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add @ogimagecn/divider
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="divider" title="components/og/divider.tsx" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Divider } from "@/components/og/divider";
+```
+
+```tsx
+<Divider
+  color="#a78bfa"
+  label="New collection"
+  thickness={2}
+  variant="dashed"
+/>
+```
+
+Omit `label` for a single full-width rule. Use `thickness` to set the line width in pixels.
+
+## API Reference
+
+| Prop        | Type                  | Default     |
+| ----------- | --------------------- | ----------- |
+| `variant`   | `"solid" \| "dashed"` | `"solid"`   |
+| `color`     | `string`              | `"#71717a"` |
+| `label`     | `string`              | —           |
+| `thickness` | `number`              | `1`         |

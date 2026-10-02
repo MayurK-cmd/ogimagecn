@@ -11,6 +11,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
 
 const initResvgWorker = () => {
   if (typeof window === "undefined") {
@@ -47,9 +48,13 @@ const initResvgWorker = () => {
 const renderPNG = initResvgWorker();
 
 export const DownloadButton = ({
+  children,
+  className,
   svg,
   width,
 }: {
+  children?: React.ReactNode;
+  className?: string;
   svg: string;
   width: number;
 }) => {
@@ -102,7 +107,7 @@ export const DownloadButton = ({
           <Button
             size="sm"
             variant="outline"
-            className="h-7"
+            className={cn("h-7", className)}
             disabled={downloadDisabled}
             onClick={handleDownload}
           >
@@ -111,7 +116,7 @@ export const DownloadButton = ({
             ) : (
               <Download />
             )}
-            Save Image
+            {children ?? "Save Image"}
           </Button>
         </TooltipTrigger>
         <TooltipContent className="pr-2 pl-3">

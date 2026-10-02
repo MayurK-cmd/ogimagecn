@@ -17,6 +17,7 @@ export const ROUTES = {
   MANIFEST: "/manifest.webmanifest",
   MCP: "/mcp",
   OPENAPI: "/openapi.json",
+  PLAYGROUND: "/playground",
   REGISTRY: "/r/registry.json",
   ROBOTS: "/robots.txt",
   RSS: "/rss.xml",

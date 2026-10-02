@@ -4,6 +4,14 @@ import type { ControlConfig } from "@/registry/lib/customizer-config";
 export const dividerDemoConfig: ControlConfig = {
   color: { default: "#a78bfa", label: "Color", type: "color" },
   label: { default: "New collection", label: "Label", type: "text" },
+  thickness: {
+    default: 2,
+    label: "Thickness",
+    max: 20,
+    min: 1,
+    step: 1,
+    type: "number",
+  },
   variant: {
     default: "dashed",
     label: "Variant",
@@ -15,10 +23,12 @@ export const dividerDemoConfig: ControlConfig = {
 export const DividerDemo = ({
   color,
   label,
+  thickness,
   variant,
 }: {
   color: string;
   label: string;
+  thickness: number;
   variant: "solid" | "dashed";
 }) => (
   <div
@@ -34,7 +44,12 @@ export const DividerDemo = ({
       width: "100%",
     }}
   >
-    <Divider color={color} variant={variant} />
-    <Divider color={color} label={label} thickness={2} variant={variant} />
+    <Divider color={color} thickness={thickness} variant={variant} />
+    <Divider
+      color={color}
+      label={label}
+      thickness={thickness}
+      variant={variant}
+    />
   </div>
 );

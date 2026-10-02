@@ -63,6 +63,23 @@ export const ComponentCustomizer = ({
             </div>
           )}
 
+          {ctrl.type === "number" && (
+            <Input
+              id={id}
+              type="number"
+              min={ctrl.min}
+              max={ctrl.max}
+              step={ctrl.step}
+              value={values[key] as number}
+              onChange={(e) => {
+                const value = e.target.valueAsNumber;
+                if (Number.isFinite(value)) {
+                  onChange(key, value);
+                }
+              }}
+            />
+          )}
+
           {ctrl.type === "image" && (
             <div className="flex items-center gap-2">
               <Input

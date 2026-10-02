@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "divider",
+  "title": "Divider",
+  "description": "A solid or dashed rule with an optional centered label.",
+  "files": [
+    {
+      "path": "registry/components/divider.tsx",
+      "content": "export interface DividerProps {\n  /** Line style on either side of the optional label. */\n  variant?: \"solid\" | \"dashed\";\n  /** Color of the line and label. */\n  color?: string;\n  /** Optional text centered between two line segments. */\n  label?: string;\n  /** Line thickness in pixels. */\n  thickness?: number;\n}\n\n/** A horizontal rule that also works inside Satori-rendered OG images. */\nexport const Divider = ({\n  variant = \"solid\",\n  color = \"#71717a\",\n  label,\n  thickness = 1,\n}: DividerProps) => {\n  const rule = `${thickness}px ${variant} ${color}`;\n\n  return (\n    <div\n      style={{\n        alignItems: \"center\",\n        color,\n        display: \"flex\",\n        width: \"100%\",\n      }}\n    >\n      <div style={{ borderTop: rule, display: \"flex\", flexGrow: 1 }} />\n      {label && (\n        <div style={{ display: \"flex\", flexShrink: 0, padding: \"0 20px\" }}>\n          {label}\n        </div>\n      )}\n      {label && (\n        <div style={{ borderTop: rule, display: \"flex\", flexGrow: 1 }} />\n      )}\n    </div>\n  );\n};\n",
+      "type": "registry:ui",
+      "target": "components/og/divider.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

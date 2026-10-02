@@ -1,6 +1,14 @@
 export type ControlType =
   | { type: "text"; default: string; label: string }
   | { type: "color"; default: string; label: string }
+  | {
+      type: "number";
+      default: number;
+      label: string;
+      min?: number;
+      max?: number;
+      step?: number;
+    }
   | { type: "image"; default: string; label: string }
   | { type: "select"; default: string; options: string[]; label: string }
   | { type: "array"; default: string[]; label: string };

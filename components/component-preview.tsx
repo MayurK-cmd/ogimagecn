@@ -115,8 +115,12 @@ export const ComponentPreview = ({
             </div>
             <div className="flex items-center gap-2">
               <ResetButton disabled={isDefault} onClick={handleReset} />
-              <DownloadButton svg={svg} width={OG_WIDTH}>
-                Save
+              <DownloadButton
+                svg={svg}
+                width={OG_WIDTH}
+                className="max-sm:size-7 max-sm:px-0"
+              >
+                <span className="hidden sm:inline">Save</span>
               </DownloadButton>
               {isBlock && (
                 <Button size="sm" className="h-7" asChild>

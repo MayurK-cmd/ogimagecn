@@ -6,8 +6,8 @@ import { ROUTES } from "@/constants/routes";
 
 export const Announcement = () => (
   <Badge asChild variant="secondary">
-    <Link href={ROUTES.SCAN}>
-      Scan any URL for its link preview <ArrowRightIcon />
+    <Link href={ROUTES.PLAYGROUND}>
+      New: the Playground is here <ArrowRightIcon />
     </Link>
   </Badge>
 );

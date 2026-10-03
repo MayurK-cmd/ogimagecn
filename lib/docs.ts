@@ -32,5 +32,6 @@ export const PAGES_NEW: string[] = [
   `${ROUTES.DOCS_COMPONENTS}/avatar`,
   `${ROUTES.DOCS_COMPONENTS}/badge`,
   `${ROUTES.DOCS_COMPONENTS}/brand-mark`,
+  `${ROUTES.DOCS_COMPONENTS}/divider`,
   `${ROUTES.DOCS_COMPONENTS}/grid-lines`,
 ];

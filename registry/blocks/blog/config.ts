@@ -9,7 +9,7 @@ export const blogConfig: ControlConfig = {
     default:
       "A deep dive into Satori, the next/og runtime, and shipping fast cards.",
     label: "Excerpt",
-    type: "text",
+    type: "textarea",
   },
   logo: { default: "", label: "Logo", type: "image" },
   meta: {

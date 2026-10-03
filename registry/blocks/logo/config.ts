@@ -8,6 +8,6 @@ export const logoConfig: ControlConfig = {
   tagline: {
     default: "Open Graph images, built on Satori",
     label: "Tagline",
-    type: "text",
+    type: "textarea",
   },
 };

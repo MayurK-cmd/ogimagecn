@@ -5,7 +5,7 @@ export const shadcnRegistry1Config: ControlConfig = {
     default:
       "Beautifully designed components built with Radix UI and Tailwind CSS.",
     label: "Description",
-    type: "text",
+    type: "textarea",
   },
   items: {
     default: ["159+ components", "open source", "accessible"],

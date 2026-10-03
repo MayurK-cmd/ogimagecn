@@ -5,7 +5,7 @@ export const gridConfig: ControlConfig = {
   description: {
     default: "Composable components powered by Satori and the next/og runtime.",
     label: "Description",
-    type: "text",
+    type: "textarea",
   },
   logo: { default: "", label: "Logo", type: "image" },
   title: {

@@ -5,7 +5,7 @@ export const statConfig: ControlConfig = {
   caption: {
     default: "Open Graph images generated with next/og this year.",
     label: "Caption",
-    type: "text",
+    type: "textarea",
   },
   label: { default: "Images rendered", label: "Label", type: "text" },
   logo: { default: "", label: "Logo", type: "image" },

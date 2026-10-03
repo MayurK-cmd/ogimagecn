@@ -6,7 +6,7 @@ export const simpleConfig: ControlConfig = {
     default:
       "A shadcn registry of social card components you can copy, paste, and ship.",
     label: "Description",
-    type: "text",
+    type: "textarea",
   },
   label: { default: "Open Graph", label: "Label", type: "text" },
   logo: { default: "", label: "Logo", type: "image" },

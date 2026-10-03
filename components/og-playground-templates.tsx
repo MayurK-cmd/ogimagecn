@@ -84,7 +84,7 @@ export const OgTemplateList = ({
   templates: PlaygroundTemplate[];
 }) => (
   <div className={cn("flex h-full min-h-0 flex-col", className)}>
-    <div className="flex shrink-0 items-center justify-between gap-2 border-b px-4 py-3">
+    <div className="flex h-12 shrink-0 items-center justify-between gap-2 border-b px-4 max-lg:h-14">
       <h3 className="truncate text-sm font-medium">Templates</h3>
     </div>
 

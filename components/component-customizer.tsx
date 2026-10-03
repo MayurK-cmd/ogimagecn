@@ -19,9 +19,6 @@ interface ComponentCustomizerProps {
   values: Record<string, unknown>;
   onChange: (key: string, value: unknown) => void;
   className?: string;
-  /* Narrow columns clip long strings in a single-line input, so the playground
-     swaps text controls for textareas that grow to fit their value. */
-  multilineText?: boolean;
 }
 
 /* Grows with its content so a long title or excerpt stays readable. */
@@ -40,7 +37,15 @@ const GrowingTextarea = ({
     element.style.height = `${element.scrollHeight}px`;
   }, [value]);
 
-  return <Textarea ref={ref} rows={1} value={value} {...props} />;
+  return (
+    <Textarea
+      ref={ref}
+      rows={1}
+      value={value}
+      {...props}
+      className={cn("overflow-hidden", props.className)}
+    />
+  );
 };
 
 export const ComponentCustomizer = ({
@@ -48,7 +53,6 @@ export const ComponentCustomizer = ({
   values,
   onChange,
   className,
-  multilineText = false,
 }: ComponentCustomizerProps) => (
   <div className={cn("grid gap-4 sm:grid-cols-2", className)}>
     {Object.entries(controls).map(([key, ctrl]) => {
@@ -57,7 +61,7 @@ export const ComponentCustomizer = ({
         <div
           key={key}
           className={cn(
-            "flex flex-col gap-2 justify-center",
+            "flex min-w-0 flex-col gap-2",
             /* `col-span-full` rather than `col-span-2`: a fixed span would
                force a second track even when the grid is a single column. */
             ["image", "array"].includes(ctrl.type) && "col-span-full"
@@ -65,30 +69,32 @@ export const ComponentCustomizer = ({
         >
           <Label htmlFor={id}>{ctrl.label}</Label>
 
-          {ctrl.type === "text" &&
-            (multilineText ? (
-              <GrowingTextarea
-                className="resize-none"
-                id={id}
-                value={values[key] as string}
-                onChange={(e) => onChange(key, e.target.value)}
-              />
-            ) : (
-              <Input
-                id={id}
-                type="text"
-                value={values[key] as string}
-                onChange={(e) => onChange(key, e.target.value)}
-              />
-            ))}
+          {ctrl.type === "text" && (
+            <Input
+              id={id}
+              type="text"
+              value={values[key] as string}
+              onChange={(e) => onChange(key, e.target.value)}
+            />
+          )}
+
+          {ctrl.type === "textarea" && (
+            <GrowingTextarea
+              className="resize-none"
+              id={id}
+              value={values[key] as string}
+              onChange={(e) => onChange(key, e.target.value)}
+            />
+          )}
 
           {ctrl.type === "color" && (
             <div className="flex items-center gap-2">
               <input
-                id={id}
+                id={`${id}-swatch`}
                 type="color"
                 value={values[key] as string}
                 onChange={(e) => onChange(key, e.target.value)}
+                aria-label={ctrl.label}
                 className="size-9 shrink-0 cursor-pointer rounded-md border bg-transparent p-0.5"
               />
               <Input
@@ -154,6 +160,8 @@ export const ComponentCustomizer = ({
 
           {ctrl.type === "select" && (
             <NativeSelect
+              id={id}
+              className="w-full"
               value={values[key] as string}
               onChange={(e) => onChange(key, e.target.value)}
             >
@@ -168,31 +176,22 @@ export const ComponentCustomizer = ({
           {ctrl.type === "array" && (
             <div className="flex flex-col gap-2">
               {(values[key] as string[]).map((item, i) => (
-                <div key={i} className="flex items-center gap-2">
-                  {multilineText ? (
-                    <GrowingTextarea
-                      className="resize-none"
-                      value={item}
-                      onChange={(e) => {
-                        const arr = [...(values[key] as string[])];
-                        arr[i] = e.target.value;
-                        onChange(key, arr);
-                      }}
-                    />
-                  ) : (
-                    <Input
-                      type="text"
-                      value={item}
-                      onChange={(e) => {
-                        const arr = [...(values[key] as string[])];
-                        arr[i] = e.target.value;
-                        onChange(key, arr);
-                      }}
-                    />
-                  )}
+                <div key={i} className="flex items-start gap-2">
+                  <Input
+                    type="text"
+                    value={item}
+                    aria-label={`${ctrl.label} ${i + 1}`}
+                    onChange={(e) => {
+                      const arr = [...(values[key] as string[])];
+                      arr[i] = e.target.value;
+                      onChange(key, arr);
+                    }}
+                  />
                   <Button
                     size="icon"
                     variant="outline"
+                    className="shrink-0"
+                    aria-label="Remove item"
                     onClick={() => {
                       const arr = (values[key] as string[]).filter(
                         (_, j) => j !== i

@@ -5,7 +5,7 @@ export const shadcnRegistry6Config: ControlConfig = {
   description: {
     default: "Composable OG image components built with Satori.",
     label: "Description",
-    type: "text",
+    type: "textarea",
   },
   logo: { default: "", label: "Logo", type: "image" },
   title: {

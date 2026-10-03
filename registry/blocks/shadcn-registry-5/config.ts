@@ -5,7 +5,7 @@ export const shadcnRegistry5Config: ControlConfig = {
     default:
       "Built with React, Typescript, shadcn/ui, Tailwind CSS, and Motion.",
     label: "Description",
-    type: "text",
+    type: "textarea",
   },
   logo: { default: "", label: "Logo", type: "image" },
   name: { default: "ogimagecn", label: "Name", type: "text" },

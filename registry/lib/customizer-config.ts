@@ -1,5 +1,6 @@
 export type ControlType =
   | { type: "text"; default: string; label: string }
+  | { type: "textarea"; default: string; label: string }
   | { type: "color"; default: string; label: string }
   | {
       type: "number";

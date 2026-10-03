@@ -6,7 +6,7 @@ export const profileConfig: ControlConfig = {
     default:
       "Building tools for the open web. Writing about design systems, performance, and shipping fast.",
     label: "Bio",
-    type: "text",
+    type: "textarea",
   },
   name: { default: "Ada Lovelace", label: "Name", type: "text" },
   role: {

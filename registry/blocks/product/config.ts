@@ -5,7 +5,7 @@ export const productConfig: ControlConfig = {
   description: {
     default: "Copy-paste social cards rendered with next/og.",
     label: "Description",
-    type: "text",
+    type: "textarea",
   },
   image: { default: "", label: "Product Image", type: "image" },
   logo: { default: "", label: "Logo", type: "image" },

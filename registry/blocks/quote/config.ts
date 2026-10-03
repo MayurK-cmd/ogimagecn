@@ -7,6 +7,6 @@ export const quoteConfig: ControlConfig = {
   quote: {
     default: "This is hands down the fastest way to ship beautiful OG images.",
     label: "Quote",
-    type: "text",
+    type: "textarea",
   },
 };

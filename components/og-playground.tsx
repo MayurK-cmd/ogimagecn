@@ -4,6 +4,7 @@ import {
   LayoutGridIcon,
   RotateCcwIcon,
   SlidersHorizontalIcon,
+  XIcon,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
@@ -19,6 +20,7 @@ import { Button } from "@/components/ui/button";
 import { Kbd } from "@/components/ui/kbd";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetTitle,
   SheetTrigger,
@@ -29,11 +31,21 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { ROUTES } from "@/constants/routes";
+import type { PackageManager } from "@/hooks/use-package-manager";
+import { usePackageManager } from "@/hooks/use-package-manager";
 import registry from "@/registry/__index__";
 import { getDefaults } from "@/registry/lib/customizer-config";
 
 const OG_WIDTH = 1200;
 const OG_HEIGHT = 630;
+
+/* Mirrors the global package-manager commands (see command-box.tsx). */
+const pmCommands: Record<PackageManager, string> = {
+  bun: "bunx --bun",
+  npm: "npx",
+  pnpm: "pnpm dlx",
+  yarn: "yarn dlx",
+};
 
 /* `shadcn-registry-1` installs as `ShadcnRegistry1`. `Component.name` is not
    an option: bundlers rename it in production builds. */
@@ -113,39 +125,38 @@ const ResetButton = ({
 
 const ControlsPanel = ({
   children,
-  installCommand,
   isDefault,
   onReset,
+  showClose = false,
   title,
 }: {
   children: React.ReactNode;
-  installCommand: string;
   isDefault: boolean;
   onReset: () => void;
+  showClose?: boolean;
   title: string;
 }) => (
   <div className="flex h-full min-h-0 flex-col">
-    <div className="flex shrink-0 items-center justify-between gap-2 border-b px-4 py-3">
+    <div className="flex h-12 shrink-0 items-center justify-between gap-2 border-b px-4 max-lg:h-14">
       <h3 className="truncate text-sm font-medium">{title}</h3>
-      <ResetButton disabled={isDefault} onClick={onReset} />
+      <div className="flex shrink-0 items-center gap-2">
+        <ResetButton disabled={isDefault} onClick={onReset} />
+        {showClose && (
+          <SheetClose asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-muted-foreground size-7 rounded-md"
+            >
+              <XIcon />
+              <span className="sr-only">Close panel</span>
+            </Button>
+          </SheetClose>
+        )}
+      </div>
     </div>
 
     <div className="min-h-0 flex-1 overflow-y-auto p-4">{children}</div>
-
-    <div className="shrink-0 border-t p-4">
-      <div className="mb-2 flex items-center justify-between gap-2">
-        <span className="text-muted-foreground text-xs">Install command</span>
-        {/* Icon-only CopyButton floats itself over code blocks by default. */}
-        <CopyButton
-          value={installCommand}
-          event="copy_npm_command"
-          className="static size-7 shrink-0"
-        />
-      </div>
-      <code className="block rounded-md bg-muted p-2 font-mono text-xs break-all">
-        {installCommand}
-      </code>
-    </div>
   </div>
 );
 
@@ -164,6 +175,7 @@ export const OgPlayground = ({
   const [svg, setSvg] = useState("");
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const [isListOpen, setIsListOpen] = useState(false);
+  const [packageManager] = usePackageManager();
 
   const entry = registry[templateKey];
   const template =
@@ -203,7 +215,7 @@ export const OgPlayground = ({
     preventDefault: true,
   });
 
-  const installCommand = `npx shadcn@latest add @ogimagecn/${templateKey}`;
+  const installCommand = `${pmCommands[packageManager]} shadcn@latest add @ogimagecn/${templateKey}`;
   const jsxSnippet = useMemo(
     () => buildSnippet(templateKey, values),
     [templateKey, values]
@@ -220,17 +232,16 @@ export const OgPlayground = ({
     />
   );
 
-  const controls = (
+  const renderControls = (showClose = false) => (
     <ControlsPanel
-      installCommand={installCommand}
       isDefault={isDefault}
       onReset={handleReset}
+      showClose={showClose}
       title={template.title}
     >
       <ComponentCustomizer
         className="sm:grid-cols-1"
         controls={entry.config}
-        multilineText
         onChange={handleChange}
         values={values}
       />
@@ -238,31 +249,15 @@ export const OgPlayground = ({
   );
 
   return (
-    <div className="mb-16 flex min-h-0 flex-col p-3 lg:mb-0 lg:h-[calc(100svh-var(--header-height))]">
+    <div className="flex h-[calc(100svh-var(--header-height))] min-h-0 flex-col px-6 pb-4">
       <div className="grid min-h-0 flex-1 lg:grid-cols-[17rem_minmax(0,1fr)_20rem] lg:gap-4">
-        <aside className="bg-muted/30 hidden min-h-0 flex-col overflow-hidden rounded-xl border lg:flex">
+        <aside className="hidden min-h-0 flex-col overflow-hidden rounded-xl border lg:flex">
           {templateList}
         </aside>
 
-        <div className="relative flex min-h-0 flex-col">
-          {/* `container-type: size` lets the card below cap its width against the
-              available height, so it never grows wider than its column on short
-              viewports. PreviewRenderer keeps the 1200:630 ratio itself. */}
-          <div className="@container flex min-h-0 flex-1 items-center justify-center overflow-hidden p-2 lg:p-6 [container-type:size]">
-            <div className="w-full max-w-3xl lg:max-w-[min(48rem,calc(100cqh*1.9048))]">
-              <PreviewRenderer
-                Component={entry.Component}
-                height={OG_HEIGHT}
-                name={template.title}
-                onSvgReady={setSvg}
-                values={values}
-                width={OG_WIDTH}
-              />
-            </div>
-          </div>
-
-          <div className="flex shrink-0 items-center justify-between gap-3 p-2 lg:px-1 lg:pb-0">
-            <div className="min-w-0 flex-1 lg:hidden">
+        <div className="relative flex min-h-0 flex-col overflow-hidden rounded-xl border">
+          <div className="absolute inset-x-3 top-3 z-10 flex items-center gap-2 lg:hidden">
+            <div className="min-w-0 flex-1">
               <Sheet onOpenChange={setIsListOpen} open={isListOpen}>
                 <SheetTrigger asChild>
                   <Button
@@ -275,7 +270,7 @@ export const OgPlayground = ({
                   </Button>
                 </SheetTrigger>
                 <SheetContent
-                  className="w-full gap-0 p-0 sm:max-w-sm"
+                  className="w-full max-w-none gap-0 p-0 sm:max-w-none"
                   side="left"
                 >
                   <SheetTitle className="sr-only">Templates</SheetTitle>
@@ -284,9 +279,67 @@ export const OgPlayground = ({
               </Sheet>
             </div>
 
-            <div className="flex items-center gap-2 lg:ml-auto">
+            <Sheet onOpenChange={setIsPanelOpen} open={isPanelOpen}>
+              <SheetTrigger asChild>
+                <Button
+                  size="icon"
+                  variant="outline"
+                  className="size-8 shrink-0"
+                  aria-label="Customize"
+                >
+                  <SlidersHorizontalIcon />
+                </Button>
+              </SheetTrigger>
+              <SheetContent
+                className="w-full max-w-none gap-0 p-0 sm:max-w-none [&>button]:hidden"
+                side="right"
+              >
+                <SheetTitle className="sr-only">
+                  {template.title} controls
+                </SheetTitle>
+                {renderControls(true)}
+              </SheetContent>
+            </Sheet>
+          </div>
+
+          {/* `container-type: size` lets the card below cap its width against the
+              available height, so it never grows wider than its column on short
+              viewports. PreviewRenderer keeps the 1200:630 ratio itself. */}
+          {/* Size containment only on lg, where the grid row gives this area a
+              definite height; on mobile it would collapse the preview to zero
+              height and pile the overlay and footer on top of each other. */}
+          <div className="@container flex min-h-0 flex-1 items-center justify-center overflow-hidden p-3 lg:p-6 lg:[container-type:size]">
+            <div className="w-full max-w-3xl lg:max-w-[min(48rem,calc(100cqh*1.9048))]">
+              <PreviewRenderer
+                Component={entry.Component}
+                height={OG_HEIGHT}
+                name={template.title}
+                onSvgReady={setSvg}
+                values={values}
+                width={OG_WIDTH}
+              />
+            </div>
+          </div>
+
+          <div className="shrink-0 p-3">
+            <div className="flex items-center gap-2">
+              <div className="bg-code text-code-foreground relative flex h-8 min-w-0 flex-1 items-center overflow-hidden rounded-lg text-sm">
+                <code
+                  data-language="bash"
+                  className="min-w-0 flex-1 truncate pr-11 pl-4 font-mono text-sm/none"
+                >
+                  <span className="select-none">$ </span>
+                  {installCommand}
+                </code>
+                <CopyButton
+                  className="absolute top-1/2 right-1 z-10 size-7 -translate-y-1/2 opacity-70 hover:opacity-100 focus-visible:opacity-100"
+                  value={installCommand}
+                  event="copy_npm_command"
+                />
+              </div>
+
               <DownloadButton
-                className="h-8 max-sm:w-8 max-sm:px-0"
+                className="h-8 shrink-0 max-sm:w-8 max-sm:px-0"
                 svg={svg}
                 width={OG_WIDTH}
               >
@@ -294,37 +347,19 @@ export const OgPlayground = ({
               </DownloadButton>
 
               <CopyButton
-                className="h-8 max-sm:w-8 max-sm:px-0"
+                className="h-8 shrink-0 max-sm:w-8 max-sm:px-0"
                 value={jsxSnippet}
-                variant="outline"
+                variant="default"
                 event="copy_usage_import_code"
               >
                 <span className="hidden sm:inline">Copy JSX</span>
               </CopyButton>
-
-              <Sheet onOpenChange={setIsPanelOpen} open={isPanelOpen}>
-                <SheetTrigger asChild>
-                  <Button className="lg:hidden" size="sm" variant="outline">
-                    <SlidersHorizontalIcon />
-                    <span className="hidden sm:inline">Customize</span>
-                  </Button>
-                </SheetTrigger>
-                <SheetContent
-                  className="w-full gap-0 p-0 sm:max-w-md"
-                  side="right"
-                >
-                  <SheetTitle className="sr-only">
-                    {template.title} controls
-                  </SheetTitle>
-                  {controls}
-                </SheetContent>
-              </Sheet>
             </div>
           </div>
         </div>
 
-        <aside className="bg-muted/30 hidden min-h-0 flex-col overflow-hidden rounded-xl border lg:flex">
-          {controls}
+        <aside className="hidden min-h-0 flex-col overflow-hidden rounded-xl border lg:flex">
+          {renderControls()}
         </aside>
       </div>
     </div>

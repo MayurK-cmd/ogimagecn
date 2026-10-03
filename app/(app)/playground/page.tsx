@@ -20,7 +20,9 @@ export default async function PlaygroundPage({
   searchParams,
 }: PlaygroundPageProps) {
   const { template } = await searchParams;
-  const templateKeys = Object.keys(registry);
+  const templateKeys = registryJson.items
+    .filter((item) => item.type === "registry:block" && item.name in registry)
+    .map((item) => item.name);
   const initialTemplate =
     templateKeys.find((key) => key === template) ?? templateKeys[0];
 

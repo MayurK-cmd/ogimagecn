@@ -5,7 +5,7 @@ export const showcaseConfig: ControlConfig = {
   subtitle: {
     default: "The dashboard that brings every metric into one calm view.",
     label: "Subtitle",
-    type: "text",
+    type: "textarea",
   },
   title: {
     default: "Run your business smarter",

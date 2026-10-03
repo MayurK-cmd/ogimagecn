@@ -1,6 +1,6 @@
 "use client";
 
-import { RotateCcwIcon } from "lucide-react";
+import { ArrowUpRightIcon, RotateCcwIcon } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useMemo, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
@@ -112,22 +112,20 @@ export const ComponentPreview = ({
               <span className="text-sm font-medium text-muted-foreground">
                 Customize
               </span>
-              {isBlock && (
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="text-muted-foreground h-7 text-xs"
-                  asChild
-                >
-                  <Link href={`${ROUTES.PLAYGROUND}?template=${name}`}>
-                    Open in Playground
-                  </Link>
-                </Button>
-              )}
             </div>
             <div className="flex items-center gap-2">
               <ResetButton disabled={isDefault} onClick={handleReset} />
-              <DownloadButton svg={svg} width={OG_WIDTH} />
+              <DownloadButton svg={svg} width={OG_WIDTH}>
+                Save
+              </DownloadButton>
+              {isBlock && (
+                <Button size="sm" className="h-7" asChild>
+                  <Link href={`${ROUTES.PLAYGROUND}?template=${name}`}>
+                    Playground
+                    <ArrowUpRightIcon />
+                  </Link>
+                </Button>
+              )}
             </div>
           </div>
           <div className="rounded-md bg-background p-4">

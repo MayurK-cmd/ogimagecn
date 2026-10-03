@@ -1,6 +1,7 @@
 "use client";
 
 import { RotateCcwIcon } from "lucide-react";
+import Link from "next/link";
 import { useCallback, useMemo, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 
@@ -14,6 +15,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { ROUTES } from "@/constants/routes";
 import { cn } from "@/lib/utils";
 import registry from "@/registry/__index__";
 import { getDefaults } from "@/registry/lib/customizer-config";
@@ -102,9 +104,21 @@ export const ComponentPreview = ({
       {!hideCustomizer && (
         <div className="rounded-lg bg-code px-1 pb-1">
           <div className="flex items-center justify-between px-2 py-1.5">
-            <span className="text-sm font-medium text-muted-foreground">
-              Customize
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium text-muted-foreground">
+                Customize
+              </span>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-muted-foreground h-7 text-xs"
+                asChild
+              >
+                <Link href={`${ROUTES.PLAYGROUND}?template=${name}`}>
+                  Open in Playground
+                </Link>
+              </Button>
+            </div>
             <div className="flex items-center gap-2">
               <ResetButton disabled={isDefault} onClick={handleReset} />
               <DownloadButton svg={svg} width={OG_WIDTH} />
